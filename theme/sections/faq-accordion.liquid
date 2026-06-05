@@ -1,0 +1,70 @@
+<section class="fb-faq fb-section">
+  <div class="fb-faq__inner">
+    <header class="fb-faq__head fb-center fb-reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="fb-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h1 class="fb-faq__heading">{{ section.settings.heading }}</h1>{%- endif -%}
+    </header>
+
+    <div class="fb-faq__list fb-reveal">
+      {%- for block in section.blocks -%}
+        <details class="fb-faq__item" {{ block.shopify_attributes }}>
+          <summary class="fb-faq__q">{{ block.settings.question }}</summary>
+          <div class="fb-faq__a fb-rte">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .fb-faq__inner { max-width: 48rem; margin-inline: auto; }
+  .fb-faq__head { margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .fb-faq__heading { margin-top: 0.75rem; }
+  .fb-faq__item { border-bottom: 1px solid var(--fb-sage-light); }
+  .fb-faq__item:first-child { border-top: 1px solid var(--fb-sage-light); }
+  .fb-faq__q {
+    cursor: pointer; list-style: none;
+    padding: 1.25rem 2.5rem 1.25rem 0; position: relative;
+    font-family: var(--fb-font-body); font-weight: 700; font-size: 1.08rem;
+  }
+  .fb-faq__q::-webkit-details-marker { display: none; }
+  .fb-faq__q::after {
+    content: '+'; position: absolute; right: 0; top: 1.1rem;
+    font-size: 1.4rem; color: var(--fb-sage-dark); transition: transform var(--fb-dur) var(--fb-ease);
+  }
+  .fb-faq__item[open] .fb-faq__q::after { content: '–'; }
+  .fb-faq__a { padding: 0 0 1.5rem; line-height: 1.8; }
+  .fb-faq__a p { margin: 0 0 0.75rem; }
+  @media (prefers-reduced-motion: reduce) { .fb-faq__q::after { transition: none; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Kicker", "default": "Häufige Fragen" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Gut zu wissen" }
+  ],
+  "blocks": [
+    {
+      "type": "frage", "name": "Frage",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Frage" },
+        { "type": "richtext", "id": "answer", "label": "Antwort" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        { "type": "frage", "settings": { "question": "Für welche Pferde ist Fabius Balance gedacht?", "answer": "<p>Für alle Pferde — zur Vorsorge und Stärkung im Alltag. Besonders unterstützend ist die Kur für empfindliche oder chronisch kranke Tiere.</p>" } },
+        { "type": "frage", "settings": { "question": "Wie wird Fabius Balance gefüttert?", "answer": "<p>Die genaue Fütterungsempfehlung findest Du auf jedem Produkt. <em>[Platzhalter: konkrete Dosierung ergänzen.]</em></p>" } },
+        { "type": "frage", "settings": { "question": "Warum drei einzelne Produkte?", "answer": "<p>Weil Immunsystem, Atemwege, Stoffwechsel und Darm zusammenwirken. Du kannst gezielt dort ansetzen, wo Dein Pferd gerade Unterstützung braucht — und die Bereiche bleiben trotzdem als Ganzes gedacht.</p>" } },
+        { "type": "frage", "settings": { "question": "Wie lange dauern Versand und Lieferung?", "answer": "<p><em>[Platzhalter: Versanddauer und Versandkosten ergänzen — siehe auch Seite „Versand & Zahlung“.]</em></p>" } },
+        { "type": "frage", "settings": { "question": "Ersetzt Fabius Balance den Tierarzt?", "answer": "<p>Nein. Fabius Balance ist ein Ergänzungsfutter und gibt keine Heilversprechen. Bei akuten oder ernsten Beschwerden ist immer Deine Tierärztin oder Dein Tierarzt die richtige Adresse.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
