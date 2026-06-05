@@ -1,7 +1,7 @@
 {%- liquid
   assign p = product
   assign variant = p.selected_or_first_available_variant
-  assign mf = p.metafields.fabius
+  assign mf = p.metafields.custom
   assign label = mf.kategorie_label
   if label == blank
     assign label = p.type

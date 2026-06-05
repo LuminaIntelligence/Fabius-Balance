@@ -3,7 +3,7 @@
   Parameter: product (Produktobjekt)
 {%- endcomment -%}
 {%- liquid
-  assign label = product.metafields.fabius.kategorie_label
+  assign label = product.metafields.custom.kategorie_label
   if label == blank
     assign label = product.type
   endif
