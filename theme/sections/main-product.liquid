@@ -1,0 +1,149 @@
+{%- liquid
+  assign p = product
+  assign variant = p.selected_or_first_available_variant
+  assign mf = p.metafields.fabius
+  assign label = mf.kategorie_label
+  if label == blank
+    assign label = p.type
+  endif
+-%}
+
+<section class="fb-pdp fb-section">
+  <div class="fb-pdp__inner">
+    <div class="fb-pdp__media">
+      {%- if p.featured_image -%}
+        <img class="fb-pdp__img" src="{{ p.featured_image | image_url: width: 1100 }}"
+          srcset="{{ p.featured_image | image_url: width: 600 }} 600w, {{ p.featured_image | image_url: width: 1100 }} 1100w"
+          sizes="(max-width: 989px) 100vw, 48vw"
+          width="{{ p.featured_image.width }}" height="{{ p.featured_image.height }}"
+          alt="{{ p.featured_image.alt | default: p.title | escape }}" fetchpriority="high">
+      {%- endif -%}
+      {%- if p.images.size > 1 -%}
+        <div class="fb-pdp__thumbs">
+          {%- for image in p.images offset: 1 -%}
+            <img src="{{ image | image_url: width: 300 }}" width="150" height="150"
+              alt="{{ image.alt | escape }}" loading="lazy">
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="fb-pdp__info">
+      {%- if label != blank -%}<p class="fb-eyebrow">{{ label }}</p>{%- endif -%}
+      <h1 class="fb-pdp__title">{{ p.title }}</h1>
+      <p class="fb-pdp__price">{{ variant.price | money }}</p>
+
+      {%- if p.description != blank -%}
+        <div class="fb-pdp__desc">{{ p.description }}</div>
+      {%- endif -%}
+
+      {%- form 'product', p, class: 'fb-pdp__form' -%}
+        {%- if p.has_only_default_variant -%}
+          <input type="hidden" name="id" value="{{ variant.id }}">
+        {%- else -%}
+          <label class="fb-label fb-pdp__vlabel" for="fb-variant">Variante</label>
+          <select class="fb-pdp__select" id="fb-variant" name="id">
+            {%- for v in p.variants -%}
+              <option value="{{ v.id }}" {% if v == variant %}selected{% endif %} {% unless v.available %}disabled{% endunless %}>
+                {{ v.title }} — {{ v.price | money }}{% unless v.available %} (ausverkauft){% endunless %}
+              </option>
+            {%- endfor -%}
+          </select>
+        {%- endif -%}
+
+        <div class="fb-pdp__buy">
+          <input class="fb-pdp__qty" type="number" name="quantity" min="1" value="1" aria-label="Menge">
+          <button class="fb-btn fb-btn--primary fb-pdp__add" type="submit" {% unless variant.available %}disabled{% endunless %}>
+            {%- if variant.available -%}In den Warenkorb{%- else -%}Ausverkauft{%- endif -%}
+          </button>
+        </div>
+        {{ form | payment_button }}
+      {%- endform -%}
+
+      {%- comment %} Metafeld-Akkordeons {% endcomment -%}
+      <div class="fb-pdp__details">
+        {%- if mf.zusammensetzung != blank -%}
+          <details class="fb-acc"><summary class="fb-acc__sum fb-label">Zusammensetzung</summary><div class="fb-acc__body">{{ mf.zusammensetzung }}</div></details>
+        {%- endif -%}
+        {%- if mf.analytische_bestandteile != blank -%}
+          <details class="fb-acc"><summary class="fb-acc__sum fb-label">Analytische Bestandteile</summary><div class="fb-acc__body">{{ mf.analytische_bestandteile }}</div></details>
+        {%- endif -%}
+        {%- if mf.fuetterungsempfehlung != blank -%}
+          <details class="fb-acc"><summary class="fb-acc__sum fb-label">Fütterungsempfehlung</summary><div class="fb-acc__body">{{ mf.fuetterungsempfehlung }}</div></details>
+        {%- endif -%}
+        {%- if mf.inhalt_ml != blank -%}
+          <details class="fb-acc"><summary class="fb-acc__sum fb-label">Inhalt</summary><div class="fb-acc__body">{{ mf.inhalt_ml }}</div></details>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {%- comment %} Cross-Sell: das ganze Zusammenspiel {% endcomment -%}
+  {%- assign others = collections.all.products | where: 'available' -%}
+  {%- if collections.all.products.size > 1 -%}
+    <div class="fb-pdp__cross">
+      <h2 class="fb-pdp__cross-title fb-center">{{ section.settings.cross_heading | default: 'Das ganze Zusammenspiel' }}</h2>
+      <div class="fb-pdp__cross-grid">
+        {%- for other in collections.all.products -%}
+          {%- unless other.id == p.id -%}
+            {%- render 'product-card', product: other -%}
+          {%- endunless -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% stylesheet %}
+  .fb-pdp__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+    max-width: var(--page-width);
+    margin-inline: auto;
+  }
+  .fb-pdp__img { width: 100%; height: auto; border-radius: var(--fb-radius-lg); background-color: var(--fb-beige-deep); }
+  .fb-pdp__thumbs { display: flex; gap: 0.6rem; margin-top: 0.75rem; }
+  .fb-pdp__thumbs img { width: 25%; height: auto; border-radius: var(--fb-radius); border: 1px solid var(--fb-sage-light); }
+  .fb-pdp__info { position: sticky; top: 6rem; }
+  .fb-pdp__title { margin: 0.4rem 0 0; }
+  .fb-pdp__price { margin: 0.75rem 0 1.25rem; font-size: 1.35rem; }
+  .fb-pdp__desc { line-height: 1.8; }
+  .fb-pdp__desc p { margin: 0 0 1rem; }
+
+  .fb-pdp__form { margin-top: 1.75rem; }
+  .fb-pdp__vlabel { display: block; margin-bottom: 0.4rem; }
+  .fb-pdp__select { width: 100%; padding: 0.75rem 1rem; margin-bottom: 1rem; border: 1px solid var(--fb-sage-dark); border-radius: var(--fb-radius); background: var(--fb-beige); }
+  .fb-pdp__buy { display: flex; gap: 0.6rem; align-items: stretch; }
+  .fb-pdp__qty { width: 4.5rem; padding: 0.75rem; text-align: center; border: 1px solid var(--fb-sage-dark); border-radius: var(--fb-radius); background: var(--fb-beige); }
+  .fb-pdp__add { flex: 1; }
+
+  .fb-pdp__details { margin-top: 2rem; }
+  .fb-acc { border-top: 1px solid var(--fb-sage-light); }
+  .fb-acc:last-of-type { border-bottom: 1px solid var(--fb-sage-light); }
+  .fb-acc__sum { cursor: pointer; padding: 1rem 0; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  .fb-acc__sum::-webkit-details-marker { display: none; }
+  .fb-acc__sum::after { content: '+'; font-size: 1.2rem; color: var(--fb-sage-dark); }
+  .fb-acc[open] .fb-acc__sum::after { content: '–'; }
+  .fb-acc__body { padding: 0 0 1.25rem; line-height: 1.7; }
+
+  .fb-pdp__cross { margin-top: clamp(3.5rem, 8vw, 6rem); max-width: var(--page-width); margin-inline: auto; }
+  .fb-pdp__cross-title { margin-bottom: 2rem; }
+  .fb-pdp__cross-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: clamp(1.25rem, 2.5vw, 2rem); }
+
+  @media (max-width: 989px) {
+    .fb-pdp__inner { grid-template-columns: 1fr; gap: 2rem; }
+    .fb-pdp__info { position: static; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Produkt",
+  "settings": [
+    { "type": "text", "id": "cross_heading", "label": "Cross-Sell-Überschrift", "default": "Das ganze Zusammenspiel" }
+  ],
+  "disabled_on": { "groups": ["header", "footer"] }
+}
+{% endschema %}
