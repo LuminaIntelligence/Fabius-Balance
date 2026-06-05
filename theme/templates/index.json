@@ -6,7 +6,18 @@
         "cta_link": "/collections/all",
         "cta2_link": "/pages/ueber-uns"
       }
+    },
+    "aha": {
+      "type": "aha-balance",
+      "settings": {},
+      "blocks": {
+        "b1": { "type": "bereich", "settings": { "title": "Immunsystem", "text": "Die Grundlage. Ein stabiles Immunsystem hilft Deinem Pferd, mit Belastungen umzugehen — besonders bei empfindlichen Tieren." } },
+        "b2": { "type": "bereich", "settings": { "title": "Atemwege", "text": "Freie Atemwege versorgen den Körper mit Sauerstoff. Reizungen hier belasten schnell das ganze System." } },
+        "b3": { "type": "bereich", "settings": { "title": "Stoffwechsel", "text": "Ein ausgeglichener Stoffwechsel verwertet Nährstoffe und hält die Energie Deines Pferdes im Gleichgewicht." } },
+        "b4": { "type": "bereich", "settings": { "title": "Darm", "text": "Ein großer Teil der Abwehr sitzt im Darm. Eine ruhige Verdauung stärkt das Immunsystem von innen." } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"]
     }
   },
-  "order": ["hero"]
+  "order": ["hero", "aha"]
 }
