@@ -142,15 +142,16 @@ a { color: inherit; }
 }
 .fb-skip:focus { left: 0; }
 
-/* ── Reveal-Animation (dezent, reduced-motion-fest) ── */
-.fb-reveal {
+/* ── Reveal-Animation (dezent, reduced-motion-fest) ──
+   Nur aktiv wenn JS läuft (html.js). Ohne JS bleibt alles sichtbar (SEO/Ausfallsicher). */
+html.js .fb-reveal {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity var(--fb-dur) var(--fb-ease),
               transform var(--fb-dur) var(--fb-ease);
   will-change: opacity, transform;
 }
-.fb-reveal.is-visible { opacity: 1; transform: none; }
+html.js .fb-reveal.is-visible { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
-  .fb-reveal { opacity: 1; transform: none; transition: none; }
+  html.js .fb-reveal { opacity: 1; transform: none; transition: none; }
 }

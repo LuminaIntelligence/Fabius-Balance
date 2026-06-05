@@ -1,0 +1,48 @@
+<section class="fb-coll fb-section">
+  <div class="fb-coll__inner">
+    <header class="fb-coll__head fb-center fb-reveal">
+      <p class="fb-eyebrow">{{ section.settings.eyebrow | default: 'Die Kur' }}</p>
+      <h1 class="fb-coll__title">{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}
+        <div class="fb-coll__desc fb-measure fb-rte">{{ collection.description }}</div>
+      {%- elsif section.settings.intro != blank -%}
+        <p class="fb-coll__desc fb-measure">{{ section.settings.intro }}</p>
+      {%- endif -%}
+    </header>
+
+    {%- if collection.products_count > 0 -%}
+      {%- paginate collection.products by 12 -%}
+        <div class="fb-coll__grid">
+          {%- for product in collection.products -%}
+            <div class="fb-reveal">{%- render 'product-card', product: product -%}</div>
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}
+          <nav class="fb-coll__pag fb-center">{{ paginate | default_pagination }}</nav>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- else -%}
+      <p class="fb-coll__empty fb-center">Hier erscheinen die Produkte, sobald sie verfügbar sind.</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .fb-coll__inner { max-width: var(--page-width); margin-inline: auto; }
+  .fb-coll__head { max-width: 44rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .fb-coll__title { margin-top: 0.5rem; }
+  .fb-coll__desc { margin: 1rem auto 0; opacity: 0.9; }
+  .fb-coll__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: clamp(1.25rem, 2.5vw, 2rem); }
+  .fb-coll__empty { margin-top: 2rem; color: var(--fb-sage-dark); }
+  .fb-coll__pag { margin-top: 3rem; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Kollektion",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Kicker", "default": "Die Kur" },
+    { "type": "textarea", "id": "intro", "label": "Einleitung (falls keine Kollektions-Beschreibung)", "default": "Drei Bereiche, ein Zusammenspiel — wähle, wo Dein Pferd gerade Unterstützung braucht." }
+  ]
+}
+{% endschema %}
