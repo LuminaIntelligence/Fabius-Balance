@@ -39,8 +39,10 @@
   .fb-trio__grid {
     margin-top: clamp(2rem, 4vw, 3rem);
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
     gap: clamp(1.25rem, 2.5vw, 2rem);
+    max-width: 56rem;
+    margin-inline: auto;
   }
   .fb-trio__empty { margin-top: 2rem; color: var(--fb-sage-dark); }
   .fb-trio__cta { margin-top: clamp(2rem, 4vw, 3rem); }
