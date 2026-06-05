@@ -1,55 +1,103 @@
-<footer>
-  <div class="footer__copyright">
-    &copy;
-    {{ 'now' | date: '%Y' }}
-    {{ shop.name | link_to: routes.root_url }}, {{ powered_by_link }}
+<footer class="fb-footer" role="contentinfo">
+  <div class="fb-footer__inner">
+    <div class="fb-footer__brand">
+      {%- render 'logo', variant: 'wort-bildmarke', tone: 'light', link: routes.root_url, loading: 'lazy' -%}
+      {%- if section.settings.claim != blank -%}
+        <p class="fb-footer__claim">{{ section.settings.claim }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.menu != blank -%}
+      <nav class="fb-footer__nav" aria-label="Rechtliches">
+        {%- for link in section.settings.menu.links -%}
+          <a class="fb-footer__link fb-label" href="{{ link.url }}">{{ link.title }}</a>
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
   </div>
 
-  <div class="footer__links">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
+  <hr class="fb-footer__rule">
 
-  <div class="footer__payment">
-    {% if section.settings.show_payment_icons %}
-      {% for type in shop.enabled_payment_types %}
-        {{ type | payment_type_svg_tag }}
-      {% endfor %}
-    {% endif %}
+  <div class="fb-footer__bottom">
+    <p class="fb-footer__copy">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
+    {%- if section.settings.show_payment_icons -%}
+      <div class="fb-footer__pay" aria-label="Akzeptierte Zahlungsarten">
+        {%- for type in shop.enabled_payment_types -%}
+          {{ type | payment_type_svg_tag: class: 'fb-footer__pay-icon' }}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
   </div>
 </footer>
 
 {% stylesheet %}
-  footer {
+  .fb-footer {
+    background-color: var(--fb-anthracite);
+    color: var(--fb-on-dark);
+    padding: var(--fb-space-section) var(--page-margin) 2rem;
+  }
+  .fb-footer__inner {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    margin-top: 2rem;
+    gap: 2.5rem;
+    max-width: var(--page-width);
+    margin-inline: auto;
   }
-  footer a {
+  .fb-footer__brand { max-width: 28rem; }
+  .fb-footer__claim {
+    margin-top: 1.25rem;
+    color: var(--fb-sage-light);
+    line-height: 1.7;
+  }
+  .fb-footer__nav { display: flex; flex-direction: column; gap: 0.85rem; }
+  .fb-footer__link {
+    color: var(--fb-on-dark);
     text-decoration: none;
-    color: var(--color-foreground);
+    opacity: 0.85;
+    transition: opacity var(--fb-dur) var(--fb-ease);
   }
-  footer .footer__links,
-  footer .footer__payment {
+  .fb-footer__link:hover { opacity: 1; }
+  .fb-footer__rule {
+    border: 0;
+    border-top: 1px solid rgba(245, 240, 230, 0.18);
+    margin: 2.5rem auto;
+    max-width: var(--page-width);
+  }
+  .fb-footer__bottom {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
     gap: 1rem;
+    max-width: var(--page-width);
+    margin-inline: auto;
   }
+  .fb-footer__copy { color: var(--fb-sage-light); font-size: 0.85rem; margin: 0; }
+  .fb-footer__pay { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .fb-footer__pay svg { height: 1.5rem; width: auto; border-radius: 4px; }
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.footer",
+  "name": "Footer",
   "settings": [
     {
       "type": "link_list",
       "id": "menu",
-      "label": "t:labels.menu"
+      "label": "Footer-Menü (Rechtliches)",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "claim",
+      "label": "Markenzeile",
+      "default": "Ganzheitliche Premium-Ergänzung für Pferde. Aus echter Erfahrung — für das Wohl Deines Pferdes."
     },
     {
       "type": "checkbox",
       "id": "show_payment_icons",
-      "label": "t:labels.show_payment_icons",
+      "label": "Zahlungs-Icons anzeigen",
       "default": true
     }
   ]

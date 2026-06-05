@@ -1,0 +1,22 @@
+{% comment %}
+  Fabius Balance — Button
+  Parameter:
+    label    Text (Pflicht)
+    href     Ziel-URL; ohne href wird <button> gerendert
+    style    'primary' (Salbei dunkel, Standard) | 'ghost'
+    on_dark  true → Ghost-Variante für dunkle Flächen
+    type     button-Typ bei fehlendem href ('submit' etc.)
+    aria     aria-label (optional)
+{% endcomment %}
+{%- liquid
+  assign style = style | default: 'primary'
+  assign classes = 'fb-btn fb-btn--' | append: style
+  if on_dark
+    assign classes = classes | append: ' fb-btn--on-dark'
+  endif
+-%}
+{%- if href -%}
+  <a class="{{ classes }}" href="{{ href }}"{% if aria %} aria-label="{{ aria | escape }}"{% endif %}>{{ label }}</a>
+{%- else -%}
+  <button class="{{ classes }}" type="{{ type | default: 'button' }}"{% if aria %} aria-label="{{ aria | escape }}"{% endif %}>{{ label }}</button>
+{%- endif -%}
