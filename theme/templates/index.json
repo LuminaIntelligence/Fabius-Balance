@@ -17,7 +17,26 @@
         "b4": { "type": "bereich", "settings": { "title": "Darm", "text": "Ein großer Teil der Abwehr sitzt im Darm. Eine ruhige Verdauung stärkt das Immunsystem von innen." } }
       },
       "block_order": ["b1", "b2", "b3", "b4"]
+    },
+    "story": {
+      "type": "story-teaser",
+      "settings": { "link_url": "/pages/ueber-uns" }
+    },
+    "trust": {
+      "type": "trust",
+      "settings": {},
+      "blocks": {
+        "t1": { "type": "punkt", "settings": { "icon": "herz", "title": "Aus echter Erfahrung", "text": "Entstanden aus der Sorge um ein chronisch krankes Pferd — nicht aus einer Marketingidee." } },
+        "t2": { "type": "punkt", "settings": { "icon": "blatt", "title": "Ganzheitlich gedacht", "text": "Immunsystem, Atemwege, Stoffwechsel und Darm betrachten wir immer zusammen." } },
+        "t3": { "type": "punkt", "settings": { "icon": "tropfen", "title": "Premium-Qualität", "text": "Sorgfältig ausgewählte Zutaten in der besten Qualität, die wir bekommen." } },
+        "t4": { "type": "punkt", "settings": { "icon": "schild", "title": "Ehrlich & ohne Versprechen", "text": "Keine Heilversprechen, keine Angst. Glaubwürdigkeit aus Geschichte und Fachwissen." } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"]
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
     }
   },
-  "order": ["hero", "aha"]
+  "order": ["hero", "aha", "story", "trust", "newsletter"]
 }

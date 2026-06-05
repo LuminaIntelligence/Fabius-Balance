@@ -1,0 +1,89 @@
+<section class="fb-news fb-section{% if section.settings.background == 'dark' %} fb-news--dark{% endif %}">
+  <div class="fb-news__inner fb-center fb-reveal">
+    {%- if section.settings.eyebrow != blank -%}<p class="fb-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<h2 class="fb-news__heading">{{ section.settings.heading }}</h2>{%- endif -%}
+    {%- if section.settings.text != blank -%}<p class="fb-news__text fb-measure">{{ section.settings.text }}</p>{%- endif -%}
+
+    {%- form 'customer', class: 'fb-news__form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      {%- if form.posted_successfully? -%}
+        <p class="fb-news__success" role="status">{{ section.settings.success_text }}</p>
+      {%- else -%}
+        <label class="fb-news__label" for="fb-news-email">E-Mail-Adresse</label>
+        <div class="fb-news__row">
+          <input class="fb-news__input" id="fb-news-email" type="email" name="contact[email]"
+            placeholder="deine@email.de" required autocomplete="email"
+            {% if form.errors %}aria-invalid="true"{% endif %}>
+          <button class="fb-btn fb-btn--primary{% if section.settings.background == 'dark' %} fb-btn--on-dark{% endif %}" type="submit">
+            {{ section.settings.button_label }}
+          </button>
+        </div>
+        {%- if form.errors -%}
+          <p class="fb-news__error" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+        {%- endif -%}
+        {%- if section.settings.privacy_text != blank -%}
+          <p class="fb-news__privacy">{{ section.settings.privacy_text }}</p>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .fb-news { background-color: var(--fb-beige); }
+  .fb-news--dark { background-color: var(--fb-anthracite); color: var(--fb-on-dark); }
+  .fb-news--dark .fb-news__heading { color: var(--fb-on-dark); }
+  .fb-news__inner { max-width: 42rem; }
+  .fb-news__heading { margin-top: 0.75rem; }
+  .fb-news__text { margin: 1rem auto 0; line-height: 1.7; }
+  .fb-news--dark .fb-news__text { color: var(--fb-beige); }
+
+  .fb-news__form { margin-top: 2rem; }
+  .fb-news__label {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+  .fb-news__row {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center;
+    max-width: 32rem; margin-inline: auto;
+  }
+  .fb-news__input {
+    flex: 1 1 16rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--fb-sage-dark);
+    border-radius: var(--fb-radius);
+    background-color: var(--fb-beige);
+    color: var(--fb-anthracite);
+    font-size: 1rem;
+  }
+  .fb-news__input:focus-visible { outline: 2px solid var(--fb-sage-dark); outline-offset: 2px; }
+  .fb-news__privacy { margin-top: 1rem; font-size: 0.82rem; opacity: 0.8; }
+  .fb-news--dark .fb-news__privacy { color: var(--fb-sage-light); opacity: 1; }
+  .fb-news__privacy a { color: inherit; }
+  .fb-news__success { margin-top: 1rem; font-weight: 700; }
+  .fb-news__error { margin-top: 0.75rem; color: #9a3b2f; }
+  .fb-news--dark .fb-news__error { color: #e0a89f; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select", "id": "background", "label": "Hintergrund",
+      "options": [ { "value": "beige", "label": "Beige" }, { "value": "dark", "label": "Anthrazit" } ],
+      "default": "dark"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Kicker", "default": "Bleib in Verbindung" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Wissen rund ums Pferd — in Ruhe erklärt" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Hin und wieder ein ehrlicher Impuls zu Immunsystem, Atemwegen, Stoffwechsel und Darm. Kein Werbedruck, jederzeit abbestellbar." },
+    { "type": "text", "id": "button_label", "label": "Button-Text", "default": "Anmelden" },
+    { "type": "text", "id": "success_text", "label": "Erfolgsmeldung", "default": "Danke! Bitte bestätige noch die E-Mail in deinem Postfach." },
+    {
+      "type": "richtext", "id": "privacy_text", "label": "Datenschutz-Hinweis",
+      "default": "<p>Mit der Anmeldung stimmst Du dem Erhalt unseres Newsletters zu. Deine Daten behandeln wir vertraulich — mehr in unserer Datenschutzerklärung.</p>"
+    }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

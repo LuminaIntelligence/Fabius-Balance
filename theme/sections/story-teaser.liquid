@@ -1,0 +1,101 @@
+{%- liquid
+  assign img = section.settings.image
+  assign side = section.settings.image_side
+-%}
+<section class="fb-story fb-section{% if side == 'right' %} fb-story--img-right{% endif %}">
+  <div class="fb-story__inner">
+    <div class="fb-story__media fb-reveal">
+      {%- if img != blank -%}
+        <img src="{{ img | image_url: width: 1100 }}"
+          srcset="{{ img | image_url: width: 600 }} 600w, {{ img | image_url: width: 1100 }} 1100w"
+          sizes="(max-width: 749px) 100vw, 45vw"
+          width="{{ img.width }}" height="{{ img.height }}"
+          alt="{{ img.alt | default: 'Fabius' | escape }}" loading="lazy" decoding="async">
+      {%- else -%}
+        <img src="{{ 'foto-geschichte.jpg' | asset_url }}" width="1300" height="1950"
+          sizes="(max-width: 749px) 100vw, 45vw"
+          alt="Eine Reiterin und ihr Pferd Fabius in einem ruhigen, vertrauten Moment"
+          loading="lazy" decoding="async">
+      {%- endif -%}
+    </div>
+
+    <div class="fb-story__content fb-reveal">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="fb-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="fb-story__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <div class="fb-story__text">{{ section.settings.text }}</div>
+      {%- endif -%}
+      {%- if section.settings.link_label != blank -%}
+        <p class="fb-story__link">
+          <a class="fb-label fb-link" href="{{ section.settings.link_url | default: '/pages/ueber-uns' }}">
+            {{ section.settings.link_label }} <span aria-hidden="true">→</span>
+          </a>
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .fb-story { background-color: var(--fb-beige); }
+  .fb-story__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+    max-width: var(--page-width);
+    margin-inline: auto;
+  }
+  .fb-story--img-right .fb-story__media { order: 2; }
+  .fb-story__media img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--fb-radius-lg);
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+  .fb-story__heading { margin: 0.75rem 0 0; }
+  .fb-story__text { margin-top: 1.25rem; line-height: 1.8; font-size: 1.08rem; }
+  .fb-story__text p { margin: 0 0 1rem; }
+  .fb-story__link { margin-top: 1.75rem; }
+  .fb-story__link a { display: inline-flex; gap: 0.5rem; align-items: center; text-decoration: none; color: var(--fb-sage-dark); }
+  .fb-story__link a span { transition: transform var(--fb-dur) var(--fb-ease); }
+  .fb-story__link a:hover span { transform: translateX(4px); }
+
+  @media (max-width: 749px) {
+    .fb-story__inner { grid-template-columns: 1fr; gap: 1.75rem; }
+    .fb-story--img-right .fb-story__media { order: 0; }
+    .fb-story__media img { aspect-ratio: 3 / 2; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fb-story__link a span { transition: none; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Story-Anriss (Fabius)",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Bild", "info": "Ohne Auswahl wird ein mitgeliefertes Fabius-Foto genutzt." },
+    {
+      "type": "select", "id": "image_side", "label": "Bildseite",
+      "options": [ { "value": "left", "label": "Links" }, { "value": "right", "label": "Rechts" } ],
+      "default": "left"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Kicker", "default": "Unsere Geschichte" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Am Anfang stand ein Pferd: Fabius" },
+    {
+      "type": "richtext", "id": "text", "label": "Text",
+      "default": "<p>Fabius war chronisch krank, und nichts auf dem Markt war wirklich das Richtige für Tiere wie ihn. Aus dieser Not entstand die Überzeugung, dass empfindliche Pferde vor allem ein starkes Immunsystem brauchen — eng verbunden mit Atemwegen, Stoffwechsel und Darm.</p>"
+    },
+    { "type": "text", "id": "link_label", "label": "Link-Text", "default": "Unsere Geschichte" },
+    { "type": "url", "id": "link_url", "label": "Link-Ziel" }
+  ],
+  "presets": [{ "name": "Story-Anriss (Fabius)" }]
+}
+{% endschema %}
