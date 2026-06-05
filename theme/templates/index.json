@@ -18,6 +18,10 @@
       },
       "block_order": ["b1", "b2", "b3", "b4"]
     },
+    "trio": {
+      "type": "product-trio",
+      "settings": { "collection": "all", "cta_link": "/collections/all" }
+    },
     "story": {
       "type": "story-teaser",
       "settings": { "link_url": "/pages/ueber-uns" }
@@ -38,5 +42,5 @@
       "settings": {}
     }
   },
-  "order": ["hero", "aha", "story", "trust", "newsletter"]
+  "order": ["hero", "aha", "trio", "story", "trust", "newsletter"]
 }
