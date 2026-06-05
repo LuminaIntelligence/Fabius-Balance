@@ -24,7 +24,7 @@
   if variant == 'bildmarke'
     assign min_h = 32
   endif
-  assign h = height | default: settings.logo_height | default: 58
+  assign h = height | default: settings.logo_height | default: 72
   if h < min_h
     assign h = min_h
   endif
@@ -41,13 +41,15 @@
     assign custom = settings.logo_bildmarke_light
   endif
 
-  assign fallback = 'fb-logo-' | append: variant | append: '-' | append: tone_word | append: '_300ppi.png'
-
-  # feste Seitenverhaeltnisse der gebuendelten Logos (gegen Layout-Shift)
-  assign fb_ratio = 1.2997
+  # gebuendelte Fallback-Logos + feste Seitenverhaeltnisse (gegen Layout-Shift)
+  # Wort-Bildmarke: getrimmte Version (fuellt die Hoehe, Schrift groesser)
+  assign fallback = 'fb-logo-wortbild-' | append: tone_word | append: '-trim.png'
+  assign fb_ratio = 1.2786
   if variant == 'bildmarke'
+    assign fallback = 'fb-logo-bildmarke-' | append: tone_word | append: '_300ppi.png'
     assign fb_ratio = 1.0367
   elsif variant == 'wortmarke'
+    assign fallback = 'fb-logo-wortmarke-' | append: tone_word | append: '_300ppi.png'
     assign fb_ratio = 2.7869
   endif
   assign fb_w = h | times: fb_ratio | round

@@ -54,7 +54,7 @@
         "step": 2,
         "unit": "px",
         "label": "Logo-Höhe (Header)",
-        "default": 58
+        "default": 72
       }
     ]
   },
