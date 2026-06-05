@@ -147,7 +147,7 @@ Echte Werte trägt Auftraggeberin/Fachexpertin nach.
 
 | Section | Zweck | Kern-Settings |
 |---|---|---|
-| `hero` | Startseiten-Einstieg | Bild (Slot), Überschrift, Subtext, CTA |
+| `hero` | Startseiten-Einstieg (**bewegt**) | Video-Slot (mp4/webm), Poster-/Fallback-Bild, Überschrift, Subtext, CTA |
 | `aha-balance` | Zusammenspiel 4 Bereiche | 4× Titel/Text, Zentralaussage |
 | `product-trio` | 3 Produkte | Heading, Produktauswahl, CTA-Label |
 | `story-teaser` | Fabius-Anriss (2–3 Sätze) | Text, Link, Bild |
@@ -161,6 +161,20 @@ Alle Sektionen: dezente Reveal-Animation, `prefers-reduced-motion`-fest, AA-Kont
 mobile-first, Section-Padding über Settings steuerbar.
 
 ---
+
+### 6.1 Hero-Video („Ein ruhiger Atemzug")
+
+Bewegter Hero als **nahtlose ~8-s-Schleife**, markentreu LOW DENSITY (kein
+Effekt-Feuerwerk): eine durchgehende Einstellung, junge Frau + Fuchsstute (Fabius)
+in weichem Streiflicht, echte Nähe (Hand an Nüstern), nur atmosphärische
+Mikro-Bewegung (Mähne/Gras/Atem) + unmerklicher optischer Push-in. Ruhiger Bildraum
+links für Headline; untere Hälfte leicht abgedunkelt für Logo/Text-Kontrast.
+
+- Generierung via Higgsfield (Build-Schritt 4), Bild-Referenz = echtes Fabius-Foto
+  für Kontinuität. Ablage `assets/generated/` (Video + Poster).
+- Einbindung: `autoplay muted loop playsinline` + Poster-Standbild; `mp4`+`webm`.
+- **`prefers-reduced-motion: reduce`** sowie langsame Verbindung/Mobil → Video wird
+  nicht geladen, statisches Hero-Foto als Fallback. Beides als Customizer-Settings.
 
 ## 7. Aha-Section (Herzstück Startseite)
 
@@ -202,7 +216,7 @@ Atemwege · Stoffwechsel · Darm, die zur Mitte „Balance" zusammenfließen.
 1. Theme (Skeleton) scaffolden + Store verbinden + Tokens/Schriften/Logos → **Preview**
 2. Header/Footer/Navigation → **Preview**
 3. 3 Produkte + Metafelder live anlegen (59,99 €)
-4. Higgsfield: Hero-/Lifestyle-Motive generieren → `assets/generated/`
+4. Higgsfield: **Hero-Video-Loop** + Hero-/Lifestyle-Motive generieren → `assets/generated/`
 5. Startseite Section für Section (Hero→Aha→Trio→Story→Trust→Newsletter) → **Preview je Section**
 6. Über-uns + 3 Produkt-Templates → **Preview**
 7. Blog/Kontakt/FAQ + Rechtsseiten + Cookie-Consent → **Preview**
