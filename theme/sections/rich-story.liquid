@@ -1,0 +1,130 @@
+{%- liquid
+  assign t = section.settings
+-%}
+<section class="fb-rs">
+  {%- if t.intro_heading != blank or t.intro_text != blank -%}
+    <div class="fb-rs__intro fb-section fb-center fb-reveal">
+      {%- if t.eyebrow != blank -%}<p class="fb-eyebrow">{{ t.eyebrow }}</p>{%- endif -%}
+      {%- if t.intro_heading != blank -%}<h1 class="fb-rs__title">{{ t.intro_heading }}</h1>{%- endif -%}
+      {%- if t.intro_text != blank -%}<p class="fb-rs__lead fb-measure">{{ t.intro_text }}</p>{%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- for block in section.blocks -%}
+    {%- liquid
+      assign b = block.settings
+      assign flip = false
+      if forloop.index | modulo: 2 == 0
+        assign flip = true
+      endif
+      if b.image_side == 'left'
+        assign flip = false
+      elsif b.image_side == 'right'
+        assign flip = true
+      endif
+
+      assign has_asset = false
+      if b.image == blank and b.image_asset != blank and b.image_asset != 'none'
+        assign has_asset = true
+      endif
+      assign has_img = false
+      if b.image != blank or has_asset
+        assign has_img = true
+      endif
+    -%}
+    <div class="fb-rs__chapter fb-section{% if flip %} fb-rs__chapter--flip{% endif %}{% unless has_img %} fb-rs__chapter--noimg{% endunless %}" {{ block.shopify_attributes }}>
+      <div class="fb-rs__chapter-inner">
+        {%- if b.image != blank -%}
+          <div class="fb-rs__media fb-reveal">
+            <img src="{{ b.image | image_url: width: 1100 }}"
+              srcset="{{ b.image | image_url: width: 600 }} 600w, {{ b.image | image_url: width: 1100 }} 1100w"
+              sizes="(max-width: 749px) 100vw, 46vw"
+              width="{{ b.image.width }}" height="{{ b.image.height }}"
+              alt="{{ b.image.alt | escape }}" loading="lazy" decoding="async">
+          </div>
+        {%- elsif has_asset -%}
+          <div class="fb-rs__media fb-reveal">
+            <img src="{{ b.image_asset | asset_url }}" width="1300" height="1950"
+              sizes="(max-width: 749px) 100vw, 46vw"
+              alt="{{ b.heading | default: 'Fabius' | escape }}" loading="lazy" decoding="async">
+          </div>
+        {%- endif -%}
+        <div class="fb-rs__text fb-reveal">
+          {%- if b.kicker != blank -%}<p class="fb-eyebrow">{{ b.kicker }}</p>{%- endif -%}
+          {%- if b.heading != blank -%}<h2 class="fb-rs__heading">{{ b.heading }}</h2>{%- endif -%}
+          {%- if b.text != blank -%}<div class="fb-rs__body">{{ b.text }}</div>{%- endif -%}
+        </div>
+      </div>
+    </div>
+  {%- endfor -%}
+</section>
+
+{% stylesheet %}
+  .fb-rs__intro { background-color: var(--fb-beige); max-width: 52rem; margin-inline: auto; }
+  .fb-rs__title { margin-top: 0.75rem; }
+  .fb-rs__lead { margin: 1.25rem auto 0; font-size: 1.15rem; line-height: 1.8; }
+
+  .fb-rs__chapter { background-color: var(--fb-beige); }
+  .fb-rs__chapter:nth-child(even) { background-color: var(--fb-sage-light); }
+  .fb-rs__chapter-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+    max-width: var(--page-width);
+    margin-inline: auto;
+  }
+  .fb-rs__chapter--flip .fb-rs__media { order: 2; }
+  .fb-rs__chapter--noimg .fb-rs__chapter-inner { grid-template-columns: 1fr; max-width: 44rem; }
+  .fb-rs__media img {
+    width: 100%; height: auto;
+    border-radius: var(--fb-radius-lg);
+    aspect-ratio: 4 / 5; object-fit: cover;
+  }
+  .fb-rs__heading { margin: 0.5rem 0 0; }
+  .fb-rs__body { margin-top: 1.25rem; line-height: 1.85; font-size: 1.06rem; }
+  .fb-rs__body p { margin: 0 0 1.1rem; }
+  .fb-rs__body p:last-child { margin-bottom: 0; }
+
+  @media (max-width: 749px) {
+    .fb-rs__chapter-inner { grid-template-columns: 1fr; gap: 1.75rem; }
+    .fb-rs__chapter--flip .fb-rs__media { order: 0; }
+    .fb-rs__media img { aspect-ratio: 3 / 2; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Geschichte (Kapitel)",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Kicker", "default": "Unsere Geschichte" },
+    { "type": "text", "id": "intro_heading", "label": "Titel", "default": "Aus echter Not entstanden" },
+    { "type": "textarea", "id": "intro_text", "label": "Einleitung", "default": "Fabius Balance beginnt nicht im Labor, sondern bei einem Pferd, das Hilfe brauchte. Das ist seine Geschichte — und der Grund, warum es uns gibt." }
+  ],
+  "blocks": [
+    {
+      "type": "kapitel", "name": "Kapitel",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Bild (eigenes, hat Vorrang)" },
+        { "type": "select", "id": "image_asset", "label": "Oder mitgeliefertes Foto", "options": [ { "value": "none", "label": "Keins" }, { "value": "foto-geschichte.jpg", "label": "Fabius — Nähe" }, { "value": "foto-vertrauen.jpg", "label": "Fabius — Wiese" } ], "default": "none" },
+        { "type": "select", "id": "image_side", "label": "Bildseite", "options": [ { "value": "auto", "label": "Automatisch (abwechselnd)" }, { "value": "left", "label": "Links" }, { "value": "right", "label": "Rechts" } ], "default": "auto" },
+        { "type": "text", "id": "kicker", "label": "Kicker" },
+        { "type": "text", "id": "heading", "label": "Überschrift" },
+        { "type": "richtext", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Geschichte (Kapitel)",
+      "blocks": [
+        { "type": "kapitel", "settings": { "kicker": "Der Ursprung", "heading": "Ein Pferd namens Fabius", "text": "<p>Am Anfang steht Fabius: chronisch krank, und nichts auf dem Markt war wirklich das Richtige für ein Tier wie ihn. Wer ein empfindliches Pferd begleitet, kennt dieses Gefühl — Du probierst vieles, und doch passt nichts so ganz.</p>" } },
+        { "type": "kapitel", "settings": { "kicker": "Der Wendepunkt", "heading": "Alles beginnt beim Immunsystem", "text": "<p>Die Suche führte zu einer einfachen, aber entscheidenden Erkenntnis: Empfindliche Pferde brauchen vor allem ein starkes Immunsystem. Und dieses ist untrennbar mit Atemwegen, Stoffwechsel und Darm verbunden. Wer nur an einer Stelle ansetzt, übersieht das Ganze.</p>" } },
+        { "type": "kapitel", "settings": { "kicker": "Aus der Not zur Mission", "heading": "Warum es Fabius Balance gibt", "text": "<p>Aus dieser Erfahrung entstand eine eigene Kur — nicht, um einen Markt zu bedienen, sondern um Fabius und Pferden wie ihm wirklich zu helfen. Bis heute steht die Marke für genau das: das Wohl des Pferdes, ganzheitlich gedacht. Kein marketinggetriebenes Unternehmen, sondern echtes Interesse.</p>" } },
+        { "type": "kapitel", "settings": { "kicker": "Die Menschen dahinter", "heading": "Fachwissen mit Herz", "text": "<p>Hinter Fabius Balance stehen Menschen, die Pferde lieben und verstehen — begleitet von fachlicher Expertise. <em>[Platzhalter: Namen und kurze Vorstellung der Expertinnen hier ergänzen.]</em></p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
