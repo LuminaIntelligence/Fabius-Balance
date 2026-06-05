@@ -1,0 +1,68 @@
+<section class="fb-blog fb-section">
+  <div class="fb-blog__inner">
+    <header class="fb-blog__head fb-center fb-reveal">
+      <p class="fb-eyebrow">{{ section.settings.eyebrow | default: 'Wissen' }}</p>
+      <h1 class="fb-blog__title">{{ blog.title }}</h1>
+      {%- if section.settings.intro != blank -%}<p class="fb-blog__intro fb-measure">{{ section.settings.intro }}</p>{%- endif -%}
+    </header>
+
+    {%- if blog.articles_count > 0 -%}
+      {%- paginate blog.articles by 9 -%}
+        <div class="fb-blog__grid">
+          {%- for article in blog.articles -%}
+            <article class="fb-bcard fb-reveal">
+              <a class="fb-bcard__media" href="{{ article.url }}" tabindex="-1" aria-hidden="true">
+                {%- if article.image -%}
+                  <img src="{{ article.image | image_url: width: 700 }}" width="{{ article.image.width }}" height="{{ article.image.height }}"
+                    sizes="(max-width:749px) 90vw, 30vw" alt="{{ article.image.alt | escape }}" loading="lazy">
+                {%- endif -%}
+              </a>
+              <div class="fb-bcard__body">
+                <p class="fb-label fb-bcard__meta">{{ article.published_at | date: '%d. %B %Y' }}</p>
+                <h2 class="fb-bcard__title"><a href="{{ article.url }}">{{ article.title }}</a></h2>
+                {%- if article.excerpt_or_content != blank -%}
+                  <p class="fb-bcard__excerpt">{{ article.excerpt_or_content | strip_html | truncatewords: 24 }}</p>
+                {%- endif -%}
+                <a class="fb-label fb-link fb-bcard__more" href="{{ article.url }}">Weiterlesen <span aria-hidden="true">→</span></a>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}
+          <nav class="fb-blog__pag fb-center">{{ paginate | default_pagination }}</nav>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- else -%}
+      <p class="fb-blog__empty fb-center">Hier erscheinen bald Beiträge rund um die Gesundheit Deines Pferdes.</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .fb-blog__inner { max-width: var(--page-width); margin-inline: auto; }
+  .fb-blog__head { max-width: 44rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .fb-blog__title { margin-top: 0.5rem; }
+  .fb-blog__intro { margin: 1rem auto 0; opacity: 0.9; }
+  .fb-blog__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); gap: clamp(1.5rem, 3vw, 2.5rem); }
+  .fb-bcard { display: flex; flex-direction: column; }
+  .fb-bcard__media { display: block; aspect-ratio: 3/2; border-radius: var(--fb-radius-lg); overflow: hidden; background: var(--fb-beige-deep); }
+  .fb-bcard__media img { width: 100%; height: 100%; object-fit: cover; }
+  .fb-bcard__body { padding-top: 1rem; }
+  .fb-bcard__meta { color: var(--fb-sage-dark); margin: 0 0 0.5rem; }
+  .fb-bcard__title { font-size: 1.3rem; margin: 0 0 0.5rem; }
+  .fb-bcard__title a { text-decoration: none; color: inherit; }
+  .fb-bcard__excerpt { margin: 0 0 0.75rem; line-height: 1.6; }
+  .fb-bcard__more { color: var(--fb-sage-dark); text-decoration: none; }
+  .fb-blog__empty { margin-top: 2rem; color: var(--fb-sage-dark); }
+  .fb-blog__pag { margin-top: 3rem; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Blog",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Kicker", "default": "Wissen" },
+    { "type": "textarea", "id": "intro", "label": "Einleitung", "default": "Ruhig erklärt: Impulse rund um Immunsystem, Atemwege, Stoffwechsel und Darm Deines Pferdes." }
+  ]
+}
+{% endschema %}
