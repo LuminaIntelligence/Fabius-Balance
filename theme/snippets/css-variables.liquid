@@ -1,18 +1,46 @@
 {% style %}
-  {% # Loads all font variantions with display: swap %}
-  {{ settings.type_primary_font | font_face: font_display: 'swap' }}
-  {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
-  {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
-  {{ settings.type_primary_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
-
   :root {
-    --font-primary--family: {{ settings.type_primary_font.family }}, {{ settings.type_primary_font.fallback_families }};
-    --font-primary--style: {{ settings.type_primary_font.style }};
-    --font-primary--weight: {{ settings.type_primary_font.weight }};
-    --page-width: {{ settings.max_page_width }};
-    --page-margin: {{ settings.min_page_margin }}px;
-    --color-background: {{ settings.background_color }};
-    --color-foreground: {{ settings.foreground_color }};
-    --style-border-radius-inputs: {{ settings.input_corner_radius }}px;
+    /* ── Marke · 4-Farb-Palette (Markenhandbuch §03 — keine weiteren Akzentfarben) ── */
+    --fb-beige: #f5f0e6;
+    --fb-sage-dark: #85998e;
+    --fb-sage-light: #bfc1b6;
+    --fb-anthracite: #282b2c;
+
+    /* abgeleitete Töne (nur Helligkeitsstufen derselben Palette) */
+    --fb-beige-deep: #ece4d4;
+    --fb-sage-dark-hover: #76897e;
+    --fb-on-dark: #f5f0e6;
+
+    /* ── Schrift (selbst-gehostet) ── */
+    --fb-font-display: 'Julius Sans One', 'Times New Roman', serif;
+    --fb-font-body: 'Lato', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    /* ── Skeleton-Kompatibilität: mappt auf die Marke ── */
+    --font-primary--family: var(--fb-font-body);
+    --font-primary--style: normal;
+    --font-primary--weight: 400;
+    --color-background: var(--fb-beige);
+    --color-foreground: var(--fb-anthracite);
+
+    /* ── Layout (aus Customizer) ── */
+    --page-width: {{ settings.max_page_width | default: '90rem' }};
+    --page-margin: {{ settings.min_page_margin | default: 24 }}px;
+    --style-border-radius-inputs: {{ settings.input_corner_radius | default: 8 }}px;
+
+    /* ── Marken-Maße & Motion ── */
+    --fb-radius: 10px;
+    --fb-radius-lg: 16px;
+    --fb-maxw: 68ch;
+    --fb-space-section: clamp(3.5rem, 8vw, 7rem);
+    --fb-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+    --fb-dur: 420ms;
+    --fb-track-display: 0.12em;
+    --fb-track-label: 0.18em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --fb-dur: 0ms;
+    }
   }
 {% endstyle %}

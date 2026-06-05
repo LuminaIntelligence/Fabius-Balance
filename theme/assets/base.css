@@ -1,0 +1,156 @@
+/* ────────────────────────────────────────────────────────────
+   Fabius Balance — Basis-Styles (Marken-Layer über critical.css)
+   Markenhandbuch: weich statt scharf, viel Weißraum, ruhige Rhythmen,
+   keine Verläufe, keine harten Schatten, kein Glanz.
+   ──────────────────────────────────────────────────────────── */
+
+body {
+  font-family: var(--fb-font-body);
+  font-weight: 400;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.7;
+  color: var(--fb-anthracite);
+  background-color: var(--fb-beige);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── Überschriften: Julius Sans One, Versalien, weite Laufweite ── */
+h1, h2, h3, .fb-display {
+  font-family: var(--fb-font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: var(--fb-track-display);
+  line-height: 1.18;
+  color: var(--fb-anthracite);
+  text-wrap: balance;
+}
+h1, .fb-h1 { font-size: clamp(2rem, 1.4rem + 3vw, 3.5rem); }
+h2, .fb-h2 { font-size: clamp(1.6rem, 1.2rem + 2vw, 2.6rem); }
+h3, .fb-h3 { font-size: clamp(1.25rem, 1.05rem + 1vw, 1.6rem); }
+
+/* H4–H6 bleiben Lato (Handbuch: Julius Sans One nie in Kleinstgrößen) */
+h4, h5, h6 {
+  font-family: var(--fb-font-body);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+}
+
+p { max-width: var(--fb-maxw); }
+
+/* ── Labels & Navigation: Lato Versalien, weit gesperrt (Handbuch §04) ── */
+.fb-label {
+  font-family: var(--fb-font-body);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--fb-track-label);
+  font-size: 0.8rem;
+}
+
+/* ── Links ── */
+a { color: inherit; }
+.fb-link {
+  color: var(--fb-anthracite);
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1px;
+  transition: opacity var(--fb-dur) var(--fb-ease);
+}
+.fb-link:hover { opacity: 0.7; }
+
+/* ── Sichtbarer Fokus (AA) ── */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--fb-anthracite);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ── Eyebrow / Kicker über Überschriften ── */
+.fb-eyebrow {
+  font-family: var(--fb-font-body);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--fb-track-label);
+  font-size: 0.78rem;
+  color: var(--fb-sage-dark);
+}
+
+/* ── Buttons: Salbei dunkel, gesperrte Versalien, flach ── */
+.fb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  font-family: var(--fb-font-body);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--fb-track-label);
+  font-size: 0.82rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: var(--fb-radius);
+  cursor: pointer;
+  transition: background-color var(--fb-dur) var(--fb-ease),
+              color var(--fb-dur) var(--fb-ease),
+              border-color var(--fb-dur) var(--fb-ease);
+}
+.fb-btn--primary {
+  background-color: var(--fb-sage-dark);
+  color: var(--fb-on-dark);
+}
+.fb-btn--primary:hover { background-color: var(--fb-sage-dark-hover); }
+.fb-btn--ghost {
+  background-color: transparent;
+  color: var(--fb-anthracite);
+  border-color: var(--fb-sage-dark);
+}
+.fb-btn--ghost:hover { background-color: var(--fb-beige-deep); }
+.fb-btn--on-dark.fb-btn--ghost {
+  color: var(--fb-on-dark);
+  border-color: var(--fb-on-dark);
+}
+
+/* ── Section-Rhythmus & Hilfsklassen ── */
+.fb-section { padding-block: var(--fb-space-section); }
+.fb-section--sage { background-color: var(--fb-sage-light); }
+.fb-section--dark { background-color: var(--fb-anthracite); color: var(--fb-on-dark); }
+.fb-section--dark h1, .fb-section--dark h2, .fb-section--dark h3 { color: var(--fb-on-dark); }
+.fb-measure { max-width: var(--fb-maxw); }
+.fb-center { text-align: center; margin-inline: auto; }
+
+/* weiche Karten: viel Innenabstand, Trennlinie statt schwerer Box */
+.fb-card {
+  background-color: var(--fb-beige);
+  border: 1px solid var(--fb-sage-light);
+  border-radius: var(--fb-radius-lg);
+  padding: clamp(1.25rem, 1rem + 1.5vw, 2rem);
+}
+
+/* dezente Trennlinie */
+.fb-rule { border: 0; border-top: 1px solid var(--fb-sage-light); }
+
+/* ── Skip-Link ── */
+.fb-skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--fb-anthracite);
+  color: var(--fb-on-dark);
+  padding: 0.75rem 1rem;
+  z-index: 1000;
+}
+.fb-skip:focus { left: 0; }
+
+/* ── Reveal-Animation (dezent, reduced-motion-fest) ── */
+.fb-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity var(--fb-dur) var(--fb-ease),
+              transform var(--fb-dur) var(--fb-ease);
+  will-change: opacity, transform;
+}
+.fb-reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .fb-reveal { opacity: 1; transform: none; transition: none; }
+}
