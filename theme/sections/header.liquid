@@ -1,0 +1,180 @@
+{%- liquid
+  assign sticky = section.settings.sticky
+-%}
+
+<header class="fb-header{% if sticky %} fb-header--sticky{% endif %}" role="banner">
+  <div class="fb-header__inner full-width">
+    {%- comment %} Mobil: Menü öffnen {% endcomment -%}
+    <details class="fb-nav-m" scroll-lock>
+      <summary class="fb-nav-m__toggle" aria-label="Menü öffnen">
+        <span class="fb-nav-m__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      </summary>
+      <div class="fb-nav-m__panel">
+        <nav class="fb-nav-m__nav" aria-label="Hauptnavigation mobil">
+          {%- for link in section.settings.menu.links -%}
+            <a class="fb-nav-m__link fb-label" href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+          {%- endfor -%}
+        </nav>
+      </div>
+    </details>
+
+    {%- comment %} Logo (Wort-Bildmarke dunkel auf hellem Header) {% endcomment -%}
+    <div class="fb-header__logo">
+      {%- render 'logo', variant: 'wort-bildmarke', tone: 'dark', link: routes.root_url, loading: 'eager' -%}
+    </div>
+
+    {%- comment %} Desktop-Navigation {% endcomment -%}
+    <nav class="fb-header__nav" aria-label="Hauptnavigation">
+      {%- for link in section.settings.menu.links -%}
+        <a class="fb-header__link fb-label" href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+
+    {%- comment %} Icons {% endcomment -%}
+    <div class="fb-header__icons">
+      {%- if shop.customer_accounts_enabled -%}
+        <a class="fb-header__icon" href="{{ routes.account_url }}" aria-label="Konto">
+          {{ 'icon-account.svg' | inline_asset_content }}
+        </a>
+      {%- endif -%}
+      <a class="fb-header__icon fb-header__cart" href="{{ routes.cart_url }}" aria-label="Warenkorb">
+        {{ 'icon-cart.svg' | inline_asset_content }}
+        {%- if cart.item_count > 0 -%}
+          <span class="fb-header__count" aria-hidden="true">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+  </div>
+</header>
+
+{% stylesheet %}
+  .fb-header {
+    background-color: var(--fb-beige);
+    border-bottom: 1px solid var(--fb-sage-light);
+  }
+  .fb-header--sticky {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .fb-header__inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 4.5rem;
+    padding-inline: var(--page-margin);
+  }
+  .fb-header__logo {
+    margin-inline-end: auto;
+    display: flex;
+    align-items: center;
+  }
+  .fb-header__nav {
+    display: flex;
+    gap: clamp(1rem, 2vw, 2.25rem);
+    align-items: center;
+  }
+  .fb-header__link {
+    color: var(--fb-anthracite);
+    text-decoration: none;
+    padding-block: 0.5rem;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--fb-dur) var(--fb-ease), opacity var(--fb-dur) var(--fb-ease);
+  }
+  .fb-header__link:hover { opacity: 0.72; }
+  .fb-header__link[aria-current='page'] { border-color: var(--fb-sage-dark); }
+
+  .fb-header__icons { display: flex; gap: 0.75rem; align-items: center; }
+  .fb-header__icon {
+    position: relative;
+    display: inline-flex;
+    color: var(--fb-anthracite);
+    text-decoration: none;
+  }
+  .fb-header__icon svg { width: 1.4rem; height: 1.4rem; }
+  .fb-header__count {
+    position: absolute;
+    top: -0.5rem;
+    inset-inline-start: 0.9rem;
+    background-color: var(--fb-sage-dark);
+    color: var(--fb-on-dark);
+    font-family: var(--fb-font-body);
+    font-size: 0.65rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: 0.18rem 0.32rem;
+    border-radius: 999px;
+  }
+
+  /* ── Mobil-Menü (native details, Skeleton scroll-lock) ── */
+  .fb-nav-m { display: none; }
+  .fb-nav-m__toggle {
+    list-style: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem;
+    margin-inline-start: -0.5rem;
+  }
+  .fb-nav-m__toggle::-webkit-details-marker { display: none; }
+  .fb-nav-m__bars { display: inline-block; width: 1.4rem; }
+  .fb-nav-m__bars span {
+    display: block;
+    height: 2px;
+    background-color: var(--fb-anthracite);
+    margin: 4px 0;
+    transition: transform var(--fb-dur) var(--fb-ease), opacity var(--fb-dur) var(--fb-ease);
+  }
+  .fb-nav-m[open] .fb-nav-m__bars span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .fb-nav-m[open] .fb-nav-m__bars span:nth-child(2) { opacity: 0; }
+  .fb-nav-m[open] .fb-nav-m__bars span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .fb-nav-m__panel {
+    position: fixed;
+    inset: 4.5rem 0 0 0;
+    background-color: var(--fb-beige);
+    padding: 1.5rem var(--page-margin);
+    border-top: 1px solid var(--fb-sage-light);
+    animation: fb-fade var(--fb-dur) var(--fb-ease);
+  }
+  .fb-nav-m__nav { display: flex; flex-direction: column; gap: 0.25rem; }
+  .fb-nav-m__link {
+    color: var(--fb-anthracite);
+    text-decoration: none;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--fb-sage-light);
+  }
+  @keyframes fb-fade { from { opacity: 0; } to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    .fb-nav-m__panel { animation: none; }
+    .fb-nav-m__bars span { transition: none; }
+  }
+
+  /* ── Breakpoint ── */
+  @media (max-width: 749px) {
+    .fb-header__nav { display: none; }
+    .fb-nav-m { display: block; }
+    .fb-header__logo { margin-inline: auto 0; }
+    .fb-header__inner { justify-content: space-between; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Hauptmenü",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "label": "Header beim Scrollen fixieren",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

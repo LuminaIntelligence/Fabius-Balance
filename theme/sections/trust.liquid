@@ -1,0 +1,127 @@
+<section class="fb-trust fb-section{% if section.settings.background == 'sage' %} fb-trust--sage{% endif %}">
+  <div class="fb-trust__inner">
+    <div class="fb-trust__head fb-reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="fb-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="fb-trust__heading">{{ section.settings.heading }}</h2>{%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="fb-trust__grid" role="list">
+        {%- for block in section.blocks -%}
+          <li class="fb-trust__item fb-reveal" {{ block.shopify_attributes }}>
+            <span class="fb-trust__icon" aria-hidden="true">
+              {%- case block.settings.icon -%}
+                {%- when 'herz' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20s-7-4.6-7-9.5A3.5 3.5 0 0 1 12 7a3.5 3.5 0 0 1 7 3.5C19 15.4 12 20 12 20z"/></svg>
+                {%- when 'schild' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+                {%- when 'tropfen' -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3s6 6.5 6 10.5a6 6 0 0 1-12 0C6 9.5 12 3 12 3z"/></svg>
+                {%- else -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21c0-6 3-11 9-12-1 6-4 9.5-9 10z"/><path d="M12 21c0-6-3-11-9-12 1 6 4 9.5 9 10z"/><path d="M12 21v-7"/></svg>
+              {%- endcase -%}
+            </span>
+            <h3 class="fb-trust__item-title">{{ block.settings.title }}</h3>
+            <p class="fb-trust__item-text">{{ block.settings.text }}</p>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if section.settings.quote != blank -%}
+      <figure class="fb-trust__quote fb-reveal">
+        <blockquote>{{ section.settings.quote }}</blockquote>
+        {%- if section.settings.quote_source != blank -%}
+          <figcaption class="fb-label">{{ section.settings.quote_source }}</figcaption>
+        {%- endif -%}
+      </figure>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .fb-trust { background-color: var(--fb-beige); }
+  .fb-trust--sage { background-color: var(--fb-sage-light); }
+  .fb-trust__inner { max-width: var(--page-width); margin-inline: auto; }
+  .fb-trust__head { max-width: 44rem; }
+  .fb-trust__heading { margin-top: 0.75rem; }
+  .fb-trust__grid {
+    list-style: none;
+    margin: clamp(2rem, 4vw, 3rem) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .fb-trust__item { padding-top: 1.5rem; border-top: 1px solid var(--fb-sage-dark); }
+  .fb-trust--sage .fb-trust__item { border-top-color: var(--fb-sage-dark); }
+  .fb-trust__icon { display: block; color: var(--fb-sage-dark); }
+  .fb-trust__icon svg { width: 2rem; height: 2rem; }
+  .fb-trust__item-title { margin: 1rem 0 0.5rem; font-size: 1.15rem; }
+  .fb-trust__item-text { margin: 0; line-height: 1.65; font-size: 0.98rem; }
+
+  .fb-trust__quote {
+    margin: clamp(2.5rem, 5vw, 4rem) auto 0;
+    max-width: 44rem;
+    text-align: center;
+  }
+  .fb-trust__quote blockquote {
+    margin: 0;
+    font-family: var(--fb-font-display);
+    text-transform: uppercase;
+    letter-spacing: var(--fb-track-display);
+    font-size: clamp(1.15rem, 1rem + 1vw, 1.6rem);
+    line-height: 1.4;
+    color: var(--fb-anthracite);
+  }
+  .fb-trust__quote figcaption { margin-top: 1rem; color: var(--fb-sage-dark); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Fachkompetenz & Vertrauen",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select", "id": "background", "label": "Hintergrund",
+      "options": [ { "value": "beige", "label": "Beige" }, { "value": "sage", "label": "Salbei hell" } ],
+      "default": "sage"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Kicker", "default": "Wofür wir stehen" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Aus echter Erfahrung, nicht aus dem Labor allein" },
+    { "type": "textarea", "id": "quote", "label": "Zitat (optional)", "default": "Hier versteht jemand mein Pferd wirklich." },
+    { "type": "text", "id": "quote_source", "label": "Zitat-Quelle (optional)" }
+  ],
+  "blocks": [
+    {
+      "type": "punkt", "name": "Vertrauenspunkt",
+      "settings": [
+        {
+          "type": "select", "id": "icon", "label": "Symbol",
+          "options": [
+            { "value": "blatt", "label": "Blatt" },
+            { "value": "herz", "label": "Herz" },
+            { "value": "schild", "label": "Schild" },
+            { "value": "tropfen", "label": "Tropfen" }
+          ],
+          "default": "blatt"
+        },
+        { "type": "text", "id": "title", "label": "Titel" },
+        { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Fachkompetenz & Vertrauen",
+      "blocks": [
+        { "type": "punkt", "settings": { "icon": "herz", "title": "Aus echter Erfahrung", "text": "Entstanden aus der Sorge um ein chronisch krankes Pferd — nicht aus einer Marketingidee." } },
+        { "type": "punkt", "settings": { "icon": "blatt", "title": "Ganzheitlich gedacht", "text": "Immunsystem, Atemwege, Stoffwechsel und Darm betrachten wir immer zusammen." } },
+        { "type": "punkt", "settings": { "icon": "tropfen", "title": "Premium-Qualität", "text": "Sorgfältig ausgewählte Zutaten in der besten Qualität, die wir bekommen." } },
+        { "type": "punkt", "settings": { "icon": "schild", "title": "Ehrlich & ohne Versprechen", "text": "Keine Heilversprechen, keine Angst. Glaubwürdigkeit aus Geschichte und Fachwissen." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

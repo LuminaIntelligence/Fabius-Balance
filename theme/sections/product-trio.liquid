@@ -1,0 +1,64 @@
+{%- liquid
+  assign coll_handle = section.settings.collection | default: 'all'
+  assign coll = collections[coll_handle]
+  assign products_list = coll.products
+  assign limit = section.settings.limit | default: 3
+-%}
+<section class="fb-trio fb-section">
+  <div class="fb-trio__inner">
+    <div class="fb-trio__head fb-center fb-reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="fb-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="fb-trio__heading">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.intro != blank -%}<p class="fb-trio__intro fb-measure">{{ section.settings.intro }}</p>{%- endif -%}
+    </div>
+
+    {%- if products_list.size > 0 -%}
+      <div class="fb-trio__grid fb-reveal">
+        {%- for product in products_list limit: limit -%}
+          {%- render 'product-card', product: product -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p class="fb-trio__empty fb-center">Die Produkte erscheinen hier, sobald sie im Shop angelegt sind.</p>
+    {%- endif -%}
+
+    {%- if section.settings.cta_label != blank -%}
+      <p class="fb-trio__cta fb-center fb-reveal">
+        {%- render 'button', label: section.settings.cta_label, href: section.settings.cta_link, style: 'ghost' -%}
+      </p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .fb-trio { background-color: var(--fb-beige); }
+  .fb-trio__inner { max-width: var(--page-width); margin-inline: auto; }
+  .fb-trio__head { max-width: 44rem; }
+  .fb-trio__heading { margin-top: 0.75rem; }
+  .fb-trio__intro { margin: 1rem auto 0; opacity: 0.9; }
+  .fb-trio__grid {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: clamp(1.25rem, 2.5vw, 2rem);
+  }
+  .fb-trio__empty { margin-top: 2rem; color: var(--fb-sage-dark); }
+  .fb-trio__cta { margin-top: clamp(2rem, 4vw, 3rem); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Produkt-Trio",
+  "tag": "section",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Kollektion", "info": "Standard: alle Produkte. Es werden die ersten 3 gezeigt." },
+    { "type": "range", "id": "limit", "min": 2, "max": 4, "step": 1, "label": "Anzahl", "default": 3 },
+    { "type": "text", "id": "eyebrow", "label": "Kicker", "default": "Die Kur" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Drei Bereiche, ein Zusammenspiel" },
+    { "type": "textarea", "id": "intro", "label": "Einleitung", "default": "Jedes Produkt setzt an einem Bereich an — und ist Teil des Ganzen. Du entscheidest, wo Dein Pferd gerade Unterstützung braucht." },
+    { "type": "text", "id": "cta_label", "label": "Button-Text", "default": "Alle Produkte ansehen" },
+    { "type": "url", "id": "cta_link", "label": "Button-Link" }
+  ],
+  "presets": [{ "name": "Produkt-Trio" }]
+}
+{% endschema %}

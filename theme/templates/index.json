@@ -1,0 +1,46 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "cta_link": "/collections/produkte",
+        "cta2_link": "/pages/ueber-uns"
+      }
+    },
+    "aha": {
+      "type": "aha-balance",
+      "settings": {},
+      "blocks": {
+        "b1": { "type": "bereich", "settings": { "title": "Immunsystem", "text": "Die Grundlage. Ein stabiles Immunsystem hilft Deinem Pferd, mit Belastungen umzugehen — besonders bei empfindlichen Tieren." } },
+        "b2": { "type": "bereich", "settings": { "title": "Atemwege", "text": "Freie Atemwege versorgen den Körper mit Sauerstoff. Reizungen hier belasten schnell das ganze System." } },
+        "b3": { "type": "bereich", "settings": { "title": "Stoffwechsel", "text": "Ein ausgeglichener Stoffwechsel verwertet Nährstoffe und hält die Energie Deines Pferdes im Gleichgewicht." } },
+        "b4": { "type": "bereich", "settings": { "title": "Darm", "text": "Ein großer Teil der Abwehr sitzt im Darm. Eine ruhige Verdauung stärkt das Immunsystem von innen." } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"]
+    },
+    "trio": {
+      "type": "product-trio",
+      "settings": { "collection": "produkte", "cta_link": "/collections/produkte" }
+    },
+    "story": {
+      "type": "story-teaser",
+      "settings": { "link_url": "/pages/ueber-uns" }
+    },
+    "trust": {
+      "type": "trust",
+      "settings": {},
+      "blocks": {
+        "t1": { "type": "punkt", "settings": { "icon": "herz", "title": "Aus echter Erfahrung", "text": "Entstanden aus der Sorge um ein chronisch krankes Pferd — nicht aus einer Marketingidee." } },
+        "t2": { "type": "punkt", "settings": { "icon": "blatt", "title": "Ganzheitlich gedacht", "text": "Immunsystem, Atemwege, Stoffwechsel und Darm betrachten wir immer zusammen." } },
+        "t3": { "type": "punkt", "settings": { "icon": "tropfen", "title": "Premium-Qualität", "text": "Sorgfältig ausgewählte Zutaten in der besten Qualität, die wir bekommen." } },
+        "t4": { "type": "punkt", "settings": { "icon": "schild", "title": "Ehrlich & ohne Versprechen", "text": "Keine Heilversprechen, keine Angst. Glaubwürdigkeit aus Geschichte und Fachwissen." } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"]
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": ["hero", "aha", "trio", "story", "trust", "newsletter"]
+}

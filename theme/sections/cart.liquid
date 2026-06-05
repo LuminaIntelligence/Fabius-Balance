@@ -1,0 +1,90 @@
+<section class="fb-cart fb-section">
+  <div class="fb-cart__inner">
+    <h1 class="fb-cart__title">Warenkorb</h1>
+
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post" novalidate class="fb-cart__form">
+        <ul class="fb-cart__items" role="list">
+          {%- for item in cart.items -%}
+            <li class="fb-cart__item">
+              <a class="fb-cart__thumb" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+                {%- if item.image -%}
+                  <img src="{{ item.image | image_url: width: 200 }}" width="100" height="100" alt="{{ item.image.alt | escape }}" loading="lazy">
+                {%- endif -%}
+              </a>
+              <div class="fb-cart__details">
+                <h2 class="fb-cart__name"><a href="{{ item.url }}">{{ item.product.title }}</a></h2>
+                {%- unless item.product.has_only_default_variant -%}<p class="fb-cart__variant">{{ item.variant.title }}</p>{%- endunless -%}
+                <p class="fb-cart__unit">{{ item.final_price | money }}</p>
+              </div>
+              <div class="fb-cart__qty">
+                <label class="fb-label" for="qty-{{ item.index }}">Menge</label>
+                <input id="qty-{{ item.index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Menge für {{ item.product.title | escape }}">
+              </div>
+              <div class="fb-cart__line">
+                <p class="fb-cart__line-price">{{ item.final_line_price | money }}</p>
+                <a class="fb-cart__remove" href="{{ item.url_to_remove }}">Entfernen</a>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        <div class="fb-cart__foot">
+          <button class="fb-btn fb-btn--ghost" type="submit" name="update">Aktualisieren</button>
+          <div class="fb-cart__totals">
+            <p class="fb-cart__subtotal"><span class="fb-label">Zwischensumme</span> <strong>{{ cart.total_price | money }}</strong></p>
+            <p class="fb-cart__note">Versand und Steuern werden im Checkout berechnet.</p>
+            <button class="fb-btn fb-btn--primary fb-cart__checkout" type="submit" name="checkout">Zur Kasse</button>
+          </div>
+        </div>
+      </form>
+      <p class="fb-cart__continue"><a class="fb-link fb-label" href="/collections/produkte">← Weiter einkaufen</a></p>
+    {%- else -%}
+      <div class="fb-cart__empty fb-center">
+        <p>Dein Warenkorb ist noch leer.</p>
+        {%- render 'button', label: 'Produkte entdecken', href: '/collections/produkte', style: 'primary' -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .fb-cart__inner { max-width: 60rem; margin-inline: auto; }
+  .fb-cart__title { margin: 0 0 2rem; }
+  .fb-cart__items { list-style: none; margin: 0; padding: 0; }
+  .fb-cart__item {
+    display: grid;
+    grid-template-columns: 100px 1fr auto auto;
+    gap: 1.25rem; align-items: center;
+    padding: 1.25rem 0; border-top: 1px solid var(--fb-sage-light);
+  }
+  .fb-cart__items .fb-cart__item:last-child { border-bottom: 1px solid var(--fb-sage-light); }
+  .fb-cart__thumb img { width: 100px; height: 100px; object-fit: cover; border-radius: var(--fb-radius); background: var(--fb-beige-deep); }
+  .fb-cart__name { font-size: 1.15rem; margin: 0 0 0.25rem; }
+  .fb-cart__name a { text-decoration: none; color: inherit; }
+  .fb-cart__variant, .fb-cart__unit { margin: 0; font-size: 0.9rem; color: var(--fb-sage-dark); }
+  .fb-cart__qty { display: flex; flex-direction: column; gap: 0.3rem; }
+  .fb-cart__qty input { width: 4rem; padding: 0.5rem; text-align: center; border: 1px solid var(--fb-sage-dark); border-radius: var(--fb-radius); background: var(--fb-beige); }
+  .fb-cart__line { text-align: right; }
+  .fb-cart__line-price { margin: 0 0 0.3rem; font-weight: 700; }
+  .fb-cart__remove { font-size: 0.82rem; color: var(--fb-sage-dark); }
+  .fb-cart__foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; margin-top: 2rem; }
+  .fb-cart__totals { margin-left: auto; text-align: right; min-width: 16rem; }
+  .fb-cart__subtotal { display: flex; justify-content: space-between; gap: 1.5rem; font-size: 1.1rem; margin: 0 0 0.5rem; }
+  .fb-cart__note { font-size: 0.82rem; color: var(--fb-sage-dark); margin: 0 0 1rem; }
+  .fb-cart__checkout { width: 100%; }
+  .fb-cart__continue { margin-top: 1.5rem; }
+  .fb-cart__continue a { text-decoration: none; color: var(--fb-sage-dark); }
+  .fb-cart__empty { padding: 3rem 0; display: grid; gap: 1.5rem; justify-items: center; }
+  @media (max-width: 749px) {
+    .fb-cart__item { grid-template-columns: 72px 1fr; grid-template-areas: 'thumb details' 'thumb qty' 'line line'; row-gap: 0.5rem; }
+    .fb-cart__thumb { grid-area: thumb; } .fb-cart__thumb img { width: 72px; height: 72px; }
+    .fb-cart__details { grid-area: details; } .fb-cart__qty { grid-area: qty; }
+    .fb-cart__line { grid-area: line; text-align: left; display: flex; gap: 1rem; align-items: baseline; }
+    .fb-cart__totals { margin-left: 0; text-align: left; width: 100%; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{ "name": "Warenkorb", "settings": [] }
+{% endschema %}

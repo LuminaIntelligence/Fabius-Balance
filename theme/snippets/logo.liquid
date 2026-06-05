@@ -1,0 +1,78 @@
+{% comment %}
+  Fabius Balance — Logo-Snippet (Markenhandbuch §02)
+  Parameter:
+    variant: 'wort-bildmarke' (Standard) | 'bildmarke' | 'wortmarke'
+    tone:    'dark' (für helle Flächen, Standard) | 'light' (für dunkle Flächen)
+    height:  px (optional; Standard aus settings.logo_height)
+    link:    URL (optional; ohne Link reines Bild)
+    loading: 'eager' (Standard) | 'lazy'
+  Regeln: schwarz auf hell / weiß auf dunkel; Mindesthöhe respektiert.
+{% endcomment %}
+
+{%- liquid
+  assign variant = variant | default: 'wort-bildmarke'
+  assign tone = tone | default: 'dark'
+  assign loading = loading | default: 'eager'
+
+  assign tone_word = 'black'
+  if tone == 'light'
+    assign tone_word = 'white'
+  endif
+
+  # Mindesthoehe: Wort-Bildmarke >= 120px Breite (~ Hoehe 44px), Bildmarke >= 64px.
+  assign min_h = 28
+  if variant == 'bildmarke'
+    assign min_h = 32
+  endif
+  assign h = height | default: settings.logo_height | default: 44
+  if h < min_h
+    assign h = min_h
+  endif
+
+  # Customizer-Override je Variante/Ton
+  assign custom = null
+  if variant == 'wort-bildmarke' and tone == 'dark'
+    assign custom = settings.logo_wort_bildmarke_dark
+  elsif variant == 'wort-bildmarke' and tone == 'light'
+    assign custom = settings.logo_wort_bildmarke_light
+  elsif variant == 'bildmarke' and tone == 'dark'
+    assign custom = settings.logo_bildmarke_dark
+  elsif variant == 'bildmarke' and tone == 'light'
+    assign custom = settings.logo_bildmarke_light
+  endif
+
+  assign fallback = 'fb-logo-' | append: variant | append: '-' | append: tone_word | append: '_300ppi.png'
+
+  # feste Seitenverhaeltnisse der gebuendelten Logos (gegen Layout-Shift)
+  assign fb_ratio = 1.2997
+  if variant == 'bildmarke'
+    assign fb_ratio = 1.0367
+  elsif variant == 'wortmarke'
+    assign fb_ratio = 2.7869
+  endif
+  assign fb_w = h | times: fb_ratio | round
+-%}
+
+{%- capture logo_img -%}
+  {%- if custom != blank -%}
+    {%- assign ratio = custom.aspect_ratio | default: 1 -%}
+    {%- assign w = h | times: ratio | round -%}
+    <img class="fb-logo fb-logo--{{ variant }}"
+      src="{{ custom | image_url: height: h }}"
+      srcset="{{ custom | image_url: height: h }} 1x, {{ custom | image_url: height: h | times: 2 }} 2x"
+      width="{{ w }}" height="{{ h }}"
+      alt="Fabius Balance" loading="{{ loading }}" decoding="async">
+  {%- else -%}
+    <img class="fb-logo fb-logo--{{ variant }}"
+      src="{{ fallback | asset_url }}"
+      width="{{ fb_w }}" height="{{ h }}"
+      style="height: {{ h }}px; width: auto;"
+      alt="Fabius Balance" loading="{{ loading }}" decoding="async">
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- if link -%}
+  <a href="{{ link }}" class="fb-logo-link" aria-label="Fabius Balance — Startseite">{{ logo_img }}</a>
+{%- else -%}
+  {{ logo_img }}
+{%- endif -%}

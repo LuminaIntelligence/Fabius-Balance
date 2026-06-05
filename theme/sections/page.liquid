@@ -1,0 +1,30 @@
+<section class="fb-page fb-section">
+  <div class="fb-page__inner">
+    <header class="fb-page__head fb-reveal">
+      <h1 class="fb-page__title">{{ page.title }}</h1>
+    </header>
+    <div class="fb-page__content fb-rte fb-reveal">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .fb-page__inner { max-width: 50rem; margin-inline: auto; }
+  .fb-page__title { margin: 0 0 2rem; }
+  .fb-rte { line-height: 1.8; }
+  .fb-rte h2 { margin: 2.5rem 0 0.75rem; font-size: clamp(1.3rem, 1.1rem + 1vw, 1.7rem); }
+  .fb-rte h3 { margin: 2rem 0 0.5rem; }
+  .fb-rte p { margin: 0 0 1.1rem; max-width: none; }
+  .fb-rte ul, .fb-rte ol { margin: 0 0 1.1rem; padding-left: 1.25rem; }
+  .fb-rte li { margin-bottom: 0.4rem; }
+  .fb-rte a { color: var(--fb-sage-dark); }
+  .fb-rte strong { font-weight: 700; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Seite",
+  "settings": []
+}
+{% endschema %}

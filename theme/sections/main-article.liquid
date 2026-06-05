@@ -1,0 +1,46 @@
+<article class="fb-article fb-section">
+  <div class="fb-article__inner">
+    <header class="fb-article__head fb-center fb-reveal">
+      <p class="fb-label fb-article__meta">{{ article.published_at | date: '%d. %B %Y' }}{% if article.author != blank %} · {{ article.author }}{% endif %}</p>
+      <h1 class="fb-article__title">{{ article.title }}</h1>
+    </header>
+
+    {%- if article.image -%}
+      <img class="fb-article__hero fb-reveal" src="{{ article.image | image_url: width: 1400 }}"
+        width="{{ article.image.width }}" height="{{ article.image.height }}"
+        sizes="(max-width: 989px) 100vw, 60rem" alt="{{ article.image.alt | escape }}" fetchpriority="high">
+    {%- endif -%}
+
+    <div class="fb-article__content fb-rte fb-reveal">
+      {{ article.content }}
+    </div>
+
+    <nav class="fb-article__nav fb-reveal">
+      {%- if blog.next_article -%}<a class="fb-link fb-label" href="{{ blog.next_article.url }}"><span aria-hidden="true">←</span> Neuerer Beitrag</a>{%- endif -%}
+      <a class="fb-link fb-label fb-article__back" href="{{ blog.url }}">Alle Beiträge</a>
+      {%- if blog.previous_article -%}<a class="fb-link fb-label" href="{{ blog.previous_article.url }}">Älterer Beitrag <span aria-hidden="true">→</span></a>{%- endif -%}
+    </nav>
+  </div>
+</article>
+
+{% stylesheet %}
+  .fb-article__inner { max-width: 50rem; margin-inline: auto; }
+  .fb-article__head { margin-bottom: 1.5rem; }
+  .fb-article__meta { color: var(--fb-sage-dark); margin: 0 0 0.75rem; }
+  .fb-article__title { margin: 0; }
+  .fb-article__hero { width: 100%; height: auto; border-radius: var(--fb-radius-lg); margin: 1.5rem 0 2.5rem; }
+  .fb-article__content { line-height: 1.85; font-size: 1.08rem; }
+  .fb-article__content h2 { margin: 2.5rem 0 0.75rem; }
+  .fb-article__content p { margin: 0 0 1.2rem; max-width: none; }
+  .fb-article__content img { border-radius: var(--fb-radius); margin: 1.5rem 0; }
+  .fb-article__nav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--fb-sage-light); }
+  .fb-article__nav a { color: var(--fb-sage-dark); text-decoration: none; }
+  .fb-article__back { margin-inline: auto; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Artikel",
+  "settings": []
+}
+{% endschema %}

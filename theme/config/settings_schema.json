@@ -1,0 +1,108 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Fabius Balance",
+    "theme_version": "1.0.0",
+    "theme_author": "Lumina Intelligence",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "Marke",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Farben und Schriften sind im Markenhandbuch festgelegt und absichtlich nicht frei wählbar. Hier pflegst Du die Logos."
+      },
+      {
+        "type": "header",
+        "content": "Logos"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_wort_bildmarke_dark",
+        "label": "Wort-Bildmarke dunkel (für helle Flächen)",
+        "info": "Hauptlogo im Header. Anthrazit auf Beige/Weiß."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_wort_bildmarke_light",
+        "label": "Wort-Bildmarke hell (für dunkle Flächen)",
+        "info": "Footer und dunkle Bildbereiche."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_bildmarke_dark",
+        "label": "Bildmarke dunkel (Icon)"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_bildmarke_light",
+        "label": "Bildmarke hell (Icon)"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Bildmarke, quadratisch. Empfohlen 96×96 px oder größer."
+      },
+      {
+        "type": "range",
+        "id": "logo_height",
+        "min": 28,
+        "max": 80,
+        "step": 2,
+        "unit": "px",
+        "label": "Logo-Höhe (Header)",
+        "default": 44
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "select",
+        "id": "max_page_width",
+        "label": "Seitenbreite",
+        "options": [
+          { "value": "80rem", "label": "Schmal" },
+          { "value": "90rem", "label": "Standard" },
+          { "value": "110rem", "label": "Breit" }
+        ],
+        "default": "90rem"
+      },
+      {
+        "type": "range",
+        "id": "min_page_margin",
+        "min": 16,
+        "max": 100,
+        "step": 2,
+        "unit": "px",
+        "label": "Seitenrand",
+        "default": 24
+      },
+      {
+        "type": "range",
+        "id": "input_corner_radius",
+        "min": 0,
+        "max": 16,
+        "step": 1,
+        "unit": "px",
+        "label": "Eckenradius (Eingabefelder/Buttons)",
+        "default": 8
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "share_image",
+        "label": "Sharing-Bild (Standard)",
+        "info": "Beim Teilen von Seiten ohne eigenes Bild."
+      }
+    ]
+  }
+]

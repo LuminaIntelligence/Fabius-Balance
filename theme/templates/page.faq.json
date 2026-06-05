@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "faq": {
+      "type": "faq-accordion",
+      "settings": { "eyebrow": "Häufige Fragen", "heading": "Gut zu wissen" },
+      "blocks": {
+        "f1": { "type": "frage", "settings": { "question": "Für welche Pferde ist Fabius Balance gedacht?", "answer": "<p>Für alle Pferde — zur Vorsorge und Stärkung im Alltag. Besonders unterstützend ist die Kur für empfindliche oder chronisch kranke Tiere.</p>" } },
+        "f2": { "type": "frage", "settings": { "question": "Wie wird Fabius Balance gefüttert?", "answer": "<p>Die genaue Fütterungsempfehlung findest Du auf jedem Produkt. <em>[Platzhalter: konkrete Dosierung ergänzen.]</em></p>" } },
+        "f3": { "type": "frage", "settings": { "question": "Warum drei einzelne Produkte?", "answer": "<p>Weil Immunsystem, Atemwege, Stoffwechsel und Darm zusammenwirken. Du kannst gezielt dort ansetzen, wo Dein Pferd gerade Unterstützung braucht — und die Bereiche bleiben trotzdem als Ganzes gedacht.</p>" } },
+        "f4": { "type": "frage", "settings": { "question": "Wie lange dauern Versand und Lieferung?", "answer": "<p><em>[Platzhalter: Versanddauer und Versandkosten ergänzen — siehe auch Seite „Versand & Zahlung“.]</em></p>" } },
+        "f5": { "type": "frage", "settings": { "question": "Ersetzt Fabius Balance den Tierarzt?", "answer": "<p>Nein. Fabius Balance ist ein Ergänzungsfutter und gibt keine Heilversprechen. Bei akuten oder ernsten Beschwerden ist immer Deine Tierärztin oder Dein Tierarzt die richtige Adresse.</p>" } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4", "f5"]
+    }
+  },
+  "order": ["faq"]
+}
