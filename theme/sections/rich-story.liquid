@@ -13,8 +13,9 @@
   {%- for block in section.blocks -%}
     {%- liquid
       assign b = block.settings
+      assign rem = forloop.index | modulo: 2
       assign flip = false
-      if forloop.index | modulo: 2 == 0
+      if rem == 0
         assign flip = true
       endif
       if b.image_side == 'left'
