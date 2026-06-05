@@ -110,6 +110,11 @@ a { color: inherit; }
   color: var(--fb-on-dark);
   border-color: var(--fb-on-dark);
 }
+.fb-btn--on-dark.fb-btn--ghost:hover {
+  background-color: var(--fb-on-dark);
+  color: var(--fb-anthracite);
+  border-color: var(--fb-on-dark);
+}
 
 /* ── Section-Rhythmus & Hilfsklassen ── */
 .fb-section { padding-block: var(--fb-space-section); }
