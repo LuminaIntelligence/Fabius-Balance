@@ -19,9 +19,7 @@
     assign tone_word = 'white'
   endif
 
-  comment
-  Mindesthöhe: Wort-Bildmarke ≥ 120px Breite (~ Höhe 44px), Bildmarke ≥ 64px.
-  endcomment
+  # Mindesthoehe: Wort-Bildmarke >= 120px Breite (~ Hoehe 44px), Bildmarke >= 64px.
   assign min_h = 28
   if variant == 'bildmarke'
     assign min_h = 32
@@ -31,7 +29,7 @@
     assign h = min_h
   endif
 
-  comment Customizer-Override je Variante/Ton endcomment
+  # Customizer-Override je Variante/Ton
   assign custom = null
   if variant == 'wort-bildmarke' and tone == 'dark'
     assign custom = settings.logo_wort_bildmarke_dark
@@ -45,7 +43,7 @@
 
   assign fallback = 'fb-logo-' | append: variant | append: '-' | append: tone_word | append: '_300ppi.png'
 
-  comment feste Seitenverhältnisse der gebündelten Logos (gegen Layout-Shift) endcomment
+  # feste Seitenverhaeltnisse der gebuendelten Logos (gegen Layout-Shift)
   assign fb_ratio = 1.2997
   if variant == 'bildmarke'
     assign fb_ratio = 1.0367
