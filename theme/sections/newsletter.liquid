@@ -1,4 +1,4 @@
-<section class="fb-news fb-section{% if section.settings.background == 'dark' %} fb-news--dark{% endif %}">
+<section class="fb-news fb-section full-width{% if section.settings.background == 'dark' %} fb-news--dark{% endif %}">
   <div class="fb-news__inner fb-center fb-reveal">
     {%- if section.settings.eyebrow != blank -%}<p class="fb-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
     {%- if section.settings.heading != blank -%}<h2 class="fb-news__heading">{{ section.settings.heading }}</h2>{%- endif -%}
@@ -33,7 +33,7 @@
   .fb-news { background-color: var(--fb-beige); }
   .fb-news--dark { background-color: var(--fb-anthracite); color: var(--fb-on-dark); }
   .fb-news--dark .fb-news__heading { color: var(--fb-on-dark); }
-  .fb-news__inner { max-width: 42rem; }
+  .fb-news__inner { max-width: 42rem; padding-inline: var(--page-margin); }
   .fb-news__heading { margin-top: 0.75rem; }
   .fb-news__text { margin: 1rem auto 0; line-height: 1.7; }
   .fb-news--dark .fb-news__text { color: var(--fb-beige); }

@@ -1,4 +1,4 @@
-<section class="fb-trust fb-section{% if section.settings.background == 'sage' %} fb-trust--sage{% endif %}">
+<section class="fb-trust fb-section full-width{% if section.settings.background == 'sage' %} fb-trust--sage{% endif %}">
   <div class="fb-trust__inner">
     <div class="fb-trust__head fb-reveal">
       {%- if section.settings.eyebrow != blank -%}<p class="fb-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
@@ -42,7 +42,7 @@
 {% stylesheet %}
   .fb-trust { background-color: var(--fb-beige); }
   .fb-trust--sage { background-color: var(--fb-sage-light); }
-  .fb-trust__inner { max-width: var(--page-width); margin-inline: auto; }
+  .fb-trust__inner { max-width: var(--page-width); margin-inline: auto; padding-inline: var(--page-margin); }
   .fb-trust__head { max-width: 44rem; }
   .fb-trust__heading { margin-top: 0.75rem; }
   .fb-trust__grid {

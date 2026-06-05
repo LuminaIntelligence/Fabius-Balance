@@ -1,7 +1,7 @@
 {%- liquid
   assign t = section.settings
 -%}
-<section class="fb-rs">
+<section class="fb-rs full-width">
   {%- if t.intro_heading != blank or t.intro_text != blank -%}
     <div class="fb-rs__intro fb-section fb-center fb-reveal">
       {%- if t.eyebrow != blank -%}<p class="fb-eyebrow">{{ t.eyebrow }}</p>{%- endif -%}
@@ -61,7 +61,7 @@
 </section>
 
 {% stylesheet %}
-  .fb-rs__intro { background-color: var(--fb-beige); max-width: 52rem; margin-inline: auto; }
+  .fb-rs__intro { background-color: var(--fb-beige); max-width: 52rem; margin-inline: auto; padding-inline: var(--page-margin); }
   .fb-rs__title { margin-top: 0.75rem; }
   .fb-rs__lead { margin: 1.25rem auto 0; font-size: 1.15rem; line-height: 1.8; }
 
@@ -74,6 +74,7 @@
     align-items: center;
     max-width: var(--page-width);
     margin-inline: auto;
+    padding-inline: var(--page-margin);
   }
   .fb-rs__chapter--flip .fb-rs__media { order: 2; }
   .fb-rs__chapter--noimg .fb-rs__chapter-inner { grid-template-columns: 1fr; max-width: 44rem; }
