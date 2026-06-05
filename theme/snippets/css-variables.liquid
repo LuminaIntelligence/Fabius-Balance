@@ -24,7 +24,7 @@
 
     /* ── Layout (aus Customizer) ── */
     --page-width: {{ settings.max_page_width | default: '90rem' }};
-    --page-margin: {{ settings.min_page_margin | default: 24 }}px;
+    --page-margin: clamp(20px, 4.5vw, 64px);
     --style-border-radius-inputs: {{ settings.input_corner_radius | default: 8 }}px;
 
     /* ── Marken-Maße & Motion ── */
