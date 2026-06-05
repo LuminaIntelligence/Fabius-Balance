@@ -91,7 +91,10 @@
   .fb-hero__overlay {
     display: grid;
     align-items: center;
-    padding: clamp(2rem, 6vw, 6rem) 0;
+    width: 100%;
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding: clamp(2rem, 6vw, 6rem) var(--page-margin);
   }
   .fb-hero__content { max-width: 38rem; color: var(--fb-on-dark); }
   .fb-hero__content[data-align='center'] {
