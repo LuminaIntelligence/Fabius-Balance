@@ -25,7 +25,7 @@
   <hr class="fb-footer__rule">
 
   <div class="fb-footer__bottom">
-    <p class="fb-footer__copy">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
+    <p class="fb-footer__copy">&copy; {{ 'now' | date: '%Y' }} {{ section.settings.copyright_name | default: 'Fabius Balance' }}</p>
     {%- if section.settings.show_payment_icons -%}
       <div class="fb-footer__pay" aria-label="Akzeptierte Zahlungsarten">
         {%- for type in shop.enabled_payment_types -%}
@@ -93,6 +93,12 @@
       "id": "menu",
       "label": "Footer-Menü (Rechtliches)",
       "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "copyright_name",
+      "label": "Name im Copyright",
+      "default": "Fabius Balance"
     },
     {
       "type": "text",

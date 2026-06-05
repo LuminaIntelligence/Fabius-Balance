@@ -3,7 +3,7 @@
     "hero": {
       "type": "hero",
       "settings": {
-        "cta_link": "/collections/all",
+        "cta_link": "/collections/produkte",
         "cta2_link": "/pages/ueber-uns"
       }
     },
@@ -20,7 +20,7 @@
     },
     "trio": {
       "type": "product-trio",
-      "settings": { "collection": "all", "cta_link": "/collections/all" }
+      "settings": { "collection": "produkte", "cta_link": "/collections/produkte" }
     },
     "story": {
       "type": "story-teaser",
