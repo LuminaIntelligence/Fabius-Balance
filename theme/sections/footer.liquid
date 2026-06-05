@@ -7,13 +7,19 @@
       {%- endif -%}
     </div>
 
-    {%- if section.settings.menu != blank -%}
-      <nav class="fb-footer__nav" aria-label="Rechtliches">
+    <nav class="fb-footer__nav" aria-label="Rechtliches">
+      {%- if section.settings.menu != blank and section.settings.menu.links.size > 0 -%}
         {%- for link in section.settings.menu.links -%}
           <a class="fb-footer__link fb-label" href="{{ link.url }}">{{ link.title }}</a>
         {%- endfor -%}
-      </nav>
-    {%- endif -%}
+      {%- else -%}
+        {%- comment %} Fallback: feste Rechtslinks, falls kein Menü gepflegt ist {% endcomment -%}
+        <a class="fb-footer__link fb-label" href="/pages/impressum">Impressum</a>
+        <a class="fb-footer__link fb-label" href="/pages/datenschutz">Datenschutz</a>
+        <a class="fb-footer__link fb-label" href="/pages/agb">AGB</a>
+        <a class="fb-footer__link fb-label" href="/pages/versand-und-zahlung">Versand &amp; Zahlung</a>
+      {%- endif -%}
+    </nav>
   </div>
 
   <hr class="fb-footer__rule">
