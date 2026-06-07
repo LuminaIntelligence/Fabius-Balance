@@ -1,4 +1,4 @@
-<footer class="fb-footer" role="contentinfo">
+<footer class="fb-footer full-width" role="contentinfo">
   <div class="fb-footer__inner">
     <div class="fb-footer__brand">
       {%- render 'logo', variant: 'wort-bildmarke', tone: 'light', link: routes.root_url, loading: 'lazy' -%}
@@ -41,6 +41,7 @@
     background-color: var(--fb-anthracite);
     color: var(--fb-on-dark);
     padding: var(--fb-space-section) var(--page-margin) 2rem;
+    border-top: 3px solid var(--fb-sage-dark);
   }
   .fb-footer__inner {
     display: flex;
