@@ -24,10 +24,10 @@
         </article>
       {%- endfor -%}
 
-      <div class="fb-aha__mark" aria-hidden="true">
+      <div class="fb-aha__center" aria-hidden="true">
+        <span class="fb-aha__balance fb-label">Balance</span>
         <img src="{{ 'fb-logo-bildmarke-black_300ppi.png' | asset_url }}"
           width="678" height="654" alt="" loading="lazy" decoding="async">
-        <span class="fb-aha__mark-label fb-label">Balance</span>
       </div>
     </div>
   </div>
@@ -45,12 +45,12 @@
   .fb-aha__intro { margin-top: 1rem; color: var(--fb-anthracite); opacity: 0.9; }
 
   .fb-aha__diagram { margin-top: clamp(2.5rem, 5vw, 4rem); }
+  /* Mobil-first: gestapelt, Pferdeblume + Balance oben */
   .fb-aha__grid {
-    position: relative;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: clamp(1rem, 2.5vw, 1.75rem);
-    max-width: 60rem;
+    grid-template-columns: 1fr;
+    gap: clamp(1rem, 3vw, 1.5rem);
+    max-width: 64rem;
     margin-inline: auto;
   }
 
@@ -71,12 +71,6 @@
   }
   .fb-aha__card:focus-visible { box-shadow: 0 0 0 2px var(--fb-sage-dark); }
 
-  /* Kartenpositionen: Platz für die zentrale Bildmarke schaffen */
-  .fb-aha__card:nth-child(1) { text-align: right; }
-  .fb-aha__card:nth-child(2) { text-align: left; }
-  .fb-aha__card:nth-child(3) { text-align: right; }
-  .fb-aha__card:nth-child(4) { text-align: left; }
-
   .fb-aha__num {
     display: inline-block;
     color: var(--fb-sage-dark);
@@ -88,20 +82,22 @@
   }
   .fb-aha__card-text { margin: 0; font-size: 0.96rem; line-height: 1.6; }
 
-  /* Zentrale Bildmarke */
-  .fb-aha__mark {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: clamp(96px, 16vw, 150px);
-    display: grid;
-    justify-items: center;
-    gap: 0.4rem;
-    pointer-events: none;
+  /* Zentrum: Balance über der Pferdeblume */
+  .fb-aha__center {
+    order: -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-bottom: 0.5rem;
   }
-  .fb-aha__mark img { width: 100%; height: auto; }
-  .fb-aha__mark-label { color: var(--fb-sage-dark); letter-spacing: var(--fb-track-label); }
+  .fb-aha__balance {
+    color: var(--fb-sage-dark);
+    letter-spacing: var(--fb-track-label);
+    font-size: 0.95rem;
+  }
+  .fb-aha__center img { width: clamp(110px, 30vw, 150px); height: auto; }
 
   .fb-aha__statement {
     margin: clamp(2.5rem, 5vw, 4rem) auto 0;
@@ -114,17 +110,26 @@
     color: var(--fb-anthracite);
   }
 
-  /* Mobil: Bildmarke oben, Karten gestapelt */
-  @media (max-width: 749px) {
+  /* Desktop: Karten links/rechts, Pferdeblume mittig mit Balance darüber */
+  @media (min-width: 750px) {
     .fb-aha__grid {
-      grid-template-columns: 1fr;
-      padding-top: clamp(120px, 32vw, 170px);
+      grid-template-columns: 1fr minmax(150px, auto) 1fr;
+      grid-template-rows: auto auto;
+      column-gap: clamp(1.5rem, 4vw, 3.5rem);
+      row-gap: clamp(1.25rem, 2.5vw, 2rem);
+      align-items: stretch;
     }
-    .fb-aha__card,
-    .fb-aha__card:nth-child(n) { text-align: left; }
-    .fb-aha__mark {
-      top: clamp(50px, 14vw, 75px);
+    .fb-aha__card:nth-child(1) { grid-column: 1; grid-row: 1; text-align: right; }
+    .fb-aha__card:nth-child(2) { grid-column: 3; grid-row: 1; text-align: left; }
+    .fb-aha__card:nth-child(3) { grid-column: 1; grid-row: 2; text-align: right; }
+    .fb-aha__card:nth-child(4) { grid-column: 3; grid-row: 2; text-align: left; }
+    .fb-aha__center {
+      grid-column: 2;
+      grid-row: 1 / 3;
+      order: 0;
+      margin-bottom: 0;
     }
+    .fb-aha__center img { width: clamp(130px, 13vw, 172px); }
   }
 
   @media (prefers-reduced-motion: reduce) {
