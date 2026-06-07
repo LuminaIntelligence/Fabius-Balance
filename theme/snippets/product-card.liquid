@@ -24,7 +24,7 @@
     {%- if label != blank -%}<p class="fb-label fb-pcard__label">{{ label }}</p>{%- endif -%}
     <h3 class="fb-pcard__title"><a href="{{ product.url }}">{{ product.title }}</a></h3>
     <p class="fb-pcard__price">{{ product.price | money }}</p>
-    <span class="fb-btn fb-btn--ghost fb-pcard__btn" aria-hidden="true">Entdecken</span>
+    <a class="fb-btn fb-btn--ghost fb-pcard__btn" href="{{ product.url }}">Entdecken</a>
   </div>
 </article>
 {% stylesheet %}
