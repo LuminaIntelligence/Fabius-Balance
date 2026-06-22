@@ -20,18 +20,20 @@
         fetchpriority="high" decoding="async">
     {%- endif -%}
 
-    <video class="fb-hero__video" muted loop playsinline preload="none" aria-hidden="true"
-      {% if img == blank %}poster="{{ 'hero-poster.jpg' | asset_url }}"{% elsif img %}poster="{{ img | image_url: width: 1400 }}"{% endif %}
-      {%- if use_bundled_video %}
-        data-mp4="{{ 'hero-loop.mp4' | asset_url }}"
-        data-webm="{{ 'hero-loop.webm' | asset_url }}"
-      {%- else -%}
-        {%- for source in section.settings.video.sources -%}
-          {%- if source.format == 'mp4' %} data-mp4="{{ source.url }}"{% endif -%}
-          {%- if source.format == 'webm' %} data-webm="{{ source.url }}"{% endif -%}
-        {%- endfor -%}
-      {%- endif -%}>
-    </video>
+    {%- if section.settings.media_type == 'video' -%}
+      <video class="fb-hero__video" muted loop playsinline preload="none" aria-hidden="true"
+        {% if img == blank %}poster="{{ 'hero-poster.jpg' | asset_url }}"{% elsif img %}poster="{{ img | image_url: width: 1400 }}"{% endif %}
+        {%- if use_bundled_video %}
+          data-mp4="{{ 'hero-loop.mp4' | asset_url }}"
+          data-webm="{{ 'hero-loop.webm' | asset_url }}"
+        {%- else -%}
+          {%- for source in section.settings.video.sources -%}
+            {%- if source.format == 'mp4' %} data-mp4="{{ source.url }}"{% endif -%}
+            {%- if source.format == 'webm' %} data-webm="{{ source.url }}"{% endif -%}
+          {%- endfor -%}
+        {%- endif -%}>
+      </video>
+    {%- endif -%}
 
     <div class="fb-hero__scrim" aria-hidden="true"></div>
   </div>
@@ -143,13 +145,19 @@
   "tag": "section",
   "settings": [
     {
-      "type": "paragraph",
-      "content": "Bewegter Einstieg. Ohne eigenes Video wird die mitgelieferte ruhige Hero-Schleife verwendet. Bei reduzierter Bewegung/Mobil wird automatisch das Standbild gezeigt."
+      "type": "select",
+      "id": "media_type",
+      "label": "Hintergrund",
+      "options": [
+        { "value": "image", "label": "Standbild" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "image"
     },
     {
       "type": "video",
       "id": "video",
-      "label": "Hero-Video (optional, ersetzt die Standard-Schleife)"
+      "label": "Hero-Video (nur bei „Video“)"
     },
     {
       "type": "image_picker",
