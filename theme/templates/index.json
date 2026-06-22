@@ -15,9 +15,24 @@
       "type": "balance-system",
       "settings": { "collection": "produkte" }
     },
+    "usp": {
+      "type": "usp-band",
+      "settings": {},
+      "blocks": {
+        "u1": { "type": "usp", "settings": { "icon": "kreis", "title": "Das Pferd als Ganzes", "text": "Wir betrachten Atemwege, Verdauung und Stoffwechsel im Zusammenspiel — nicht isoliert." } },
+        "u2": { "type": "usp", "settings": { "icon": "schild", "title": "Mit Tierärzten entwickelt", "text": "Rezepturen, begleitet von Tiermedizin und Pferdeernährung." } },
+        "u3": { "type": "usp", "settings": { "icon": "tropfen", "title": "Durchdachte Rezepturen", "text": "Hochkonzentriert und verträglich statt verwässert — wenige Produkte, maximal durchdacht." } },
+        "u4": { "type": "usp", "settings": { "icon": "blatt", "title": "Langfristige Balance", "text": "Für nachhaltige Stabilität statt kurzfristiger Soforthilfe." } }
+      },
+      "block_order": ["u1", "u2", "u3", "u4"]
+    },
     "trio": {
       "type": "product-trio",
       "settings": { "collection": "produkte", "cta_link": "/collections/produkte" }
+    },
+    "philosophy": {
+      "type": "philosophy",
+      "settings": { "background": "warm" }
     },
     "story": {
       "type": "story-teaser",
@@ -39,5 +54,5 @@
       "settings": {}
     }
   },
-  "order": ["hero", "balance", "trio", "story", "trust", "newsletter"]
+  "order": ["hero", "balance", "usp", "trio", "philosophy", "story", "trust", "newsletter"]
 }

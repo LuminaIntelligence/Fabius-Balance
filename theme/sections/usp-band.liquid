@@ -1,0 +1,87 @@
+<section class="fb-usp fb-section{% if section.settings.background == 'warm' %} fb-usp--warm{% endif %}">
+  <div class="fb-usp__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="fb-usp__heading fb-center fb-reveal">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    <ul class="fb-usp__grid fb-reveal" role="list">
+      {%- for block in section.blocks -%}
+        <li class="fb-usp__item" {{ block.shopify_attributes }}>
+          <span class="fb-usp__icon" aria-hidden="true">
+            {%- case block.settings.icon -%}
+              {%- when 'herz' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20s-7-4.6-7-9.5A3.5 3.5 0 0 1 12 7a3.5 3.5 0 0 1 7 3.5C19 15.4 12 20 12 20z"/></svg>
+              {%- when 'schild' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+              {%- when 'tropfen' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3s6 6.5 6 10.5a6 6 0 0 1-12 0C6 9.5 12 3 12 3z"/></svg>
+              {%- when 'kreis' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 2.5"/></svg>
+              {%- else -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21c0-6 3-11 9-12-1 6-4 9.5-9 10z"/><path d="M12 21c0-6-3-11-9-12 1 6 4 9.5 9 10z"/><path d="M12 21v-7"/></svg>
+            {%- endcase -%}
+          </span>
+          <div class="fb-usp__text">
+            <h3 class="fb-usp__title">{{ block.settings.title }}</h3>
+            {%- if block.settings.text != blank -%}<p class="fb-usp__desc">{{ block.settings.text }}</p>{%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% stylesheet %}
+  .fb-usp { background-color: var(--fb-beige); }
+  .fb-usp--warm { background-color: var(--fb-beige-warm); }
+  .fb-usp__inner { max-width: var(--page-width); margin-inline: auto; }
+  .fb-usp__heading { margin-bottom: clamp(1.75rem, 4vw, 2.75rem); }
+  .fb-usp__grid {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .fb-usp__item { display: flex; gap: 0.9rem; align-items: flex-start; }
+  .fb-usp__icon { flex: 0 0 auto; color: var(--fb-sage-dark); }
+  .fb-usp__icon svg { width: 1.85rem; height: 1.85rem; }
+  .fb-usp__title { font-size: 1.05rem; margin: 0.1rem 0 0.35rem; }
+  .fb-usp__desc { margin: 0; font-size: 0.92rem; line-height: 1.55; color: var(--fb-anthracite); opacity: 0.85; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "USP-Band",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select", "id": "background", "label": "Hintergrund",
+      "options": [ { "value": "canvas", "label": "Hell" }, { "value": "warm", "label": "Warm-Beige" } ],
+      "default": "warm"
+    },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Warum Fabius Balance?" }
+  ],
+  "blocks": [
+    {
+      "type": "usp", "name": "Punkt",
+      "settings": [
+        {
+          "type": "select", "id": "icon", "label": "Symbol",
+          "options": [
+            { "value": "blatt", "label": "Blatt" }, { "value": "herz", "label": "Herz" },
+            { "value": "schild", "label": "Schild" }, { "value": "tropfen", "label": "Tropfen" },
+            { "value": "kreis", "label": "Kreislauf" }
+          ], "default": "blatt"
+        },
+        { "type": "text", "id": "title", "label": "Titel" },
+        { "type": "textarea", "id": "text", "label": "Text (optional)" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "USP-Band",
+      "blocks": [
+        { "type": "usp", "settings": { "icon": "kreis", "title": "Das Pferd als Ganzes", "text": "Wir betrachten Atemwege, Verdauung und Stoffwechsel im Zusammenspiel — nicht isoliert." } },
+        { "type": "usp", "settings": { "icon": "schild", "title": "Mit Tierärzten entwickelt", "text": "Rezepturen, begleitet von Tiermedizin und Pferdeernährung." } },
+        { "type": "usp", "settings": { "icon": "tropfen", "title": "Durchdachte Rezepturen", "text": "Hochkonzentriert und verträglich statt verwässert — wenige Produkte, maximal durchdacht." } },
+        { "type": "usp", "settings": { "icon": "blatt", "title": "Langfristige Balance", "text": "Für nachhaltige Stabilität statt kurzfristiger Soforthilfe." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
