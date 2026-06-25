@@ -15,6 +15,16 @@
       "type": "balance-system",
       "settings": { "collection": "produkte" }
     },
+    "pillars": {
+      "type": "balance-pillars",
+      "settings": {},
+      "blocks": {
+        "p1": { "type": "saeule", "settings": { "title": "Atem", "text": "Unterstützt empfindliche Atemwege und begleitet Pferde in Belastungs-, Staub- oder Pollenphasen.", "link_label": "Entdecken", "link_url": "/products/atem" } },
+        "p2": { "type": "saeule", "settings": { "title": "Darm", "text": "Fördert eine stabile Verdauung und unterstützt das natürliche Gleichgewicht des Mikrobioms.", "link_label": "Entdecken", "link_url": "/products/darm" } },
+        "p3": { "type": "saeule", "settings": { "title": "Metabol", "text": "Begleitet Leber, Stoffwechsel und Ausscheidung bei stoffwechselempfindlichen Pferden.", "link_label": "Entdecken", "link_url": "/products/metabol" } }
+      },
+      "block_order": ["p1", "p2", "p3"]
+    },
     "usp": {
       "type": "usp-band",
       "settings": {},
@@ -54,5 +64,5 @@
       "settings": {}
     }
   },
-  "order": ["hero", "balance", "usp", "trio", "philosophy", "story", "trust", "newsletter"]
+  "order": ["hero", "balance", "pillars", "usp", "trio", "philosophy", "story", "trust", "newsletter"]
 }

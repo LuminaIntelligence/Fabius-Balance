@@ -1,0 +1,93 @@
+<section class="fb-pill fb-section{% if section.settings.background == 'warm' %} fb-pill--warm{% endif %}">
+  <div class="fb-pill__inner">
+    <div class="fb-pill__head fb-center fb-reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="fb-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="fb-pill__heading">{{ section.settings.heading }}</h2>{%- endif -%}
+    </div>
+
+    <div class="fb-pill__grid fb-reveal">
+      {%- for block in section.blocks -%}
+        <article class="fb-pill__col" {{ block.shopify_attributes }}>
+          <span class="fb-pill__num fb-label" aria-hidden="true">{{ forloop.index }}</span>
+          <h3 class="fb-pill__name">{{ block.settings.title }}</h3>
+          {%- if block.settings.text != blank -%}<p class="fb-pill__text">{{ block.settings.text }}</p>{%- endif -%}
+          {%- if block.settings.link_url != blank -%}
+            <a class="fb-pill__link fb-label fb-link" href="{{ block.settings.link_url }}">{{ block.settings.link_label | default: 'Entdecken' }} <span aria-hidden="true">→</span></a>
+          {%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.statement != blank -%}
+      <div class="fb-pill__foot fb-center fb-reveal">
+        {%- if section.settings.statement_heading != blank -%}<p class="fb-pill__foot-title fb-label">{{ section.settings.statement_heading }}</p>{%- endif -%}
+        <p class="fb-pill__statement fb-measure">{{ section.settings.statement }}</p>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .fb-pill { background-color: var(--fb-beige); }
+  .fb-pill--warm { background-color: var(--fb-beige-warm); }
+  .fb-pill__inner { max-width: var(--page-width); margin-inline: auto; }
+  .fb-pill__head { max-width: 44rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .fb-pill__heading { margin-top: 0.6rem; }
+  .fb-pill__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: clamp(1.75rem, 4vw, 3rem);
+  }
+  .fb-pill__col { padding-top: 1.5rem; border-top: 2px solid var(--fb-sage-dark); }
+  .fb-pill__num { color: var(--fb-sage-dark); display: block; margin-bottom: 0.6rem; }
+  .fb-pill__name { font-size: clamp(1.3rem, 1.1rem + 1vw, 1.7rem); margin: 0 0 0.75rem; }
+  .fb-pill__text { margin: 0 0 1.1rem; line-height: 1.7; }
+  .fb-pill__link { color: var(--fb-sage-dark); text-decoration: none; display: inline-flex; gap: 0.4rem; align-items: center; }
+  .fb-pill__link span { transition: transform var(--fb-dur) var(--fb-ease); }
+  .fb-pill__link:hover span { transform: translateX(4px); }
+
+  .fb-pill__foot { margin-top: clamp(2.5rem, 5vw, 4rem); max-width: 42rem; }
+  .fb-pill__foot-title { color: var(--fb-sage-dark); margin: 0 0 0.6rem; }
+  .fb-pill__statement { margin: 0 auto; font-size: 1.1rem; line-height: 1.75; }
+  @media (prefers-reduced-motion: reduce) { .fb-pill__link span { transition: none; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Balance-System Säulen",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select", "id": "background", "label": "Hintergrund",
+      "options": [ { "value": "canvas", "label": "Hell" }, { "value": "warm", "label": "Warm-Beige" } ],
+      "default": "canvas"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Kicker", "default": "Das Fabius Balance System" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Drei Bereiche. Ein Ziel." },
+    { "type": "text", "id": "statement_heading", "label": "Abschluss — Titel", "default": "Gemeinsam gedacht" },
+    { "type": "textarea", "id": "statement", "label": "Abschluss — Text", "default": "Jedes Produkt kann gezielt eingesetzt werden. Gemeinsam bilden Atem, Darm und Metabol das Fabius Balance System für eine ganzheitliche Unterstützung Deines Pferdes." }
+  ],
+  "blocks": [
+    {
+      "type": "saeule", "name": "Säule",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titel" },
+        { "type": "textarea", "id": "text", "label": "Beschreibung" },
+        { "type": "text", "id": "link_label", "label": "Link-Text", "default": "Entdecken" },
+        { "type": "url", "id": "link_url", "label": "Link-Ziel" }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Balance-System Säulen",
+      "blocks": [
+        { "type": "saeule", "settings": { "title": "Atem", "text": "Unterstützt empfindliche Atemwege und begleitet Pferde in Belastungs-, Staub- oder Pollenphasen." } },
+        { "type": "saeule", "settings": { "title": "Darm", "text": "Fördert eine stabile Verdauung und unterstützt das natürliche Gleichgewicht des Mikrobioms." } },
+        { "type": "saeule", "settings": { "title": "Metabol", "text": "Begleitet Leber, Stoffwechsel und Ausscheidung bei stoffwechselempfindlichen Pferden." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
