@@ -60,6 +60,12 @@
         {{ form | payment_button }}
       {%- endform -%}
 
+      <ul class="fb-pdp__assurance" role="list">
+        <li>Mit Tierärzten &amp; Experten entwickelt</li>
+        <li>Hochkonzentriert &amp; gut verträglich</li>
+        <li>Premium-Ergänzungsfutter für Pferde</li>
+      </ul>
+
       {%- comment %} Metafeld-Akkordeons {% endcomment -%}
       <div class="fb-pdp__details">
         {%- if mf.zusammensetzung != blank -%}
@@ -118,6 +124,11 @@
   .fb-pdp__buy { display: flex; gap: 0.6rem; align-items: stretch; }
   .fb-pdp__qty { width: 4.5rem; padding: 0.75rem; text-align: center; border: 1px solid var(--fb-sage-dark); border-radius: var(--fb-radius); background: var(--fb-beige); }
   .fb-pdp__add { flex: 1; }
+
+  .fb-pdp__assurance { list-style: none; margin: 1.25rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+  .fb-pdp__assurance li { position: relative; padding-left: 1.6rem; font-size: 0.9rem; color: var(--fb-anthracite); }
+  .fb-pdp__assurance li::before { content: ''; position: absolute; left: 0; top: 0.15rem; width: 1rem; height: 1rem; border-radius: 50%; background: var(--fb-sage-dark); }
+  .fb-pdp__assurance li::after { content: ''; position: absolute; left: 0.3rem; top: 0.42rem; width: 0.35rem; height: 0.18rem; border-left: 1.5px solid var(--fb-on-dark); border-bottom: 1.5px solid var(--fb-on-dark); transform: rotate(-45deg); }
 
   .fb-pdp__details { margin-top: 2rem; }
   .fb-acc { border-top: 1px solid var(--fb-sage-light); }

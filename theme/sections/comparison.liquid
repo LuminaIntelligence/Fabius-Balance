@@ -1,0 +1,88 @@
+<section class="fb-cmp fb-section{% if section.settings.background == 'warm' %} fb-cmp--warm{% endif %}">
+  <div class="fb-cmp__inner">
+    <div class="fb-cmp__head fb-center fb-reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="fb-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="fb-cmp__heading">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.intro != blank -%}<p class="fb-cmp__intro fb-measure">{{ section.settings.intro }}</p>{%- endif -%}
+    </div>
+
+    <div class="fb-cmp__cards fb-reveal">
+      <div class="fb-cmp__card fb-cmp__card--us">
+        <h3 class="fb-cmp__card-title">{{ section.settings.us_title }}</h3>
+        <ul class="fb-cmp__list" role="list">
+          {%- assign us = section.settings.us_points | newline_to_br | split: '<br />' -%}
+          {%- for point in us -%}
+            {%- assign p = point | strip -%}
+            {%- if p != blank -%}
+              <li><span class="fb-cmp__mark fb-cmp__mark--yes" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>
+              </span>{{ p }}</li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div class="fb-cmp__card fb-cmp__card--them">
+        <h3 class="fb-cmp__card-title">{{ section.settings.them_title }}</h3>
+        <ul class="fb-cmp__list" role="list">
+          {%- assign them = section.settings.them_points | newline_to_br | split: '<br />' -%}
+          {%- for point in them -%}
+            {%- assign p = point | strip -%}
+            {%- if p != blank -%}
+              <li><span class="fb-cmp__mark fb-cmp__mark--no" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+              </span>{{ p }}</li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .fb-cmp { background-color: var(--fb-beige); }
+  .fb-cmp--warm { background-color: var(--fb-beige-warm); }
+  .fb-cmp__inner { max-width: 58rem; margin-inline: auto; }
+  .fb-cmp__head { max-width: 44rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .fb-cmp__heading { margin-top: 0.6rem; }
+  .fb-cmp__intro { margin: 1rem auto 0; opacity: 0.9; }
+  .fb-cmp__cards { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2.5vw, 1.75rem); align-items: start; }
+  .fb-cmp__card { border-radius: var(--fb-radius-lg); padding: clamp(1.5rem, 1rem + 2vw, 2.25rem); }
+  .fb-cmp__card--us { background-color: var(--fb-beige); border: 2px solid var(--fb-sage-dark); }
+  .fb-cmp--warm .fb-cmp__card--us { background-color: var(--fb-beige); }
+  .fb-cmp__card--them { background-color: transparent; border: 1px solid var(--fb-sage-light); }
+  .fb-cmp__card-title { font-size: clamp(1.1rem, 1rem + 0.6vw, 1.4rem); margin: 0 0 1.25rem; }
+  .fb-cmp__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.85rem; }
+  .fb-cmp__list li { display: flex; gap: 0.7rem; align-items: flex-start; line-height: 1.5; font-size: 0.98rem; }
+  .fb-cmp__mark { flex: 0 0 auto; width: 1.4rem; height: 1.4rem; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-top: 0.05rem; }
+  .fb-cmp__mark svg { width: 0.85rem; height: 0.85rem; }
+  .fb-cmp__mark--yes { background-color: var(--fb-sage-dark); color: var(--fb-on-dark); }
+  .fb-cmp__mark--no { background-color: var(--fb-beige-deep); color: var(--fb-sage-dark); }
+  .fb-cmp__card--them .fb-cmp__list li { color: var(--fb-anthracite); opacity: 0.72; }
+  @media (max-width: 749px) {
+    .fb-cmp__cards { grid-template-columns: 1fr; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vergleich",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select", "id": "background", "label": "Hintergrund",
+      "options": [ { "value": "canvas", "label": "Hell" }, { "value": "warm", "label": "Warm-Beige" } ],
+      "default": "warm"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Kicker", "default": "Warum Fabius Balance anders ist" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Wir setzen dort an, wo Stabilität entsteht" },
+    { "type": "textarea", "id": "intro", "label": "Einleitung", "default": "Viele Ergänzungsfutter setzen dort an, wo Symptome sichtbar werden. Wir denken einen Schritt weiter — systemisch statt isoliert." },
+    { "type": "text", "id": "us_title", "label": "Spalte 1 — Titel", "default": "Fabius Balance" },
+    { "type": "textarea", "id": "us_points", "label": "Spalte 1 — Punkte (eine Zeile pro Punkt)", "default": "Systemisch gedacht: Atemwege, Verdauung und Stoffwechsel zusammen\nHochkonzentriert & standardisiert\nAuf langfristige Stabilität ausgelegt\nGut verträglich & PSSM-freundlich\nEntwickelt mit Tierärzten & Ernährungsexperten" },
+    { "type": "text", "id": "them_title", "label": "Spalte 2 — Titel", "default": "Herkömmliche Ergänzung" },
+    { "type": "textarea", "id": "them_points", "label": "Spalte 2 — Punkte (eine Zeile pro Punkt)", "default": "Oft symptomorientiert statt ganzheitlich\nHäufig zu niedrig dosiert oder verwässert\nMeist auf kurzfristige Soforthilfe ausgelegt\nSchwankende, nicht standardisierte Qualität\nOft marketinggetrieben" }
+  ],
+  "presets": [{ "name": "Vergleich" }]
+}
+{% endschema %}

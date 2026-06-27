@@ -3,7 +3,32 @@
     "main": {
       "type": "main-product",
       "settings": {}
+    },
+    "steps": {
+      "type": "product-steps",
+      "settings": { "background": "warm" },
+      "blocks": {
+        "s1": { "type": "schritt", "settings": { "title": "Täglich füttern", "text": "Gib die empfohlene Menge einfach über das gewohnte Futter — flüssig, gut dosierbar, ohne Aufwand." } },
+        "s2": { "type": "schritt", "settings": { "title": "Dranbleiben", "text": "Eine Kur entfaltet sich über Zeit. Bleib ein paar Wochen verlässlich dabei — Ruhe und Routine zählen." } },
+        "s3": { "type": "schritt", "settings": { "title": "Balance halten", "text": "Beobachte Dein Pferd und unterstütze gezielt dort, wo es gerade gut tut — als Teil eines ganzheitlichen Konzeptes." } }
+      },
+      "block_order": ["s1", "s2", "s3"]
+    },
+    "comparison": {
+      "type": "comparison",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq-accordion",
+      "settings": { "eyebrow": "Häufige Fragen", "heading": "Gut zu wissen" },
+      "blocks": {
+        "q1": { "type": "frage", "settings": { "question": "Wie füttere ich Fabius Balance?", "answer": "<p>Flüssig und einfach über das gewohnte Futter. Die genaue Fütterungsempfehlung findest Du in der Produktbeschreibung. <em>[Platzhalter: konkrete Dosierung ergänzen.]</em></p>" } },
+        "q2": { "type": "frage", "settings": { "question": "Für welche Pferde ist es geeignet?", "answer": "<p>Für alle Pferde zur Vorsorge und Stärkung im Alltag — besonders unterstützend für empfindliche oder sensible Tiere.</p>" } },
+        "q3": { "type": "frage", "settings": { "question": "Wie lange sollte ich es füttern?", "answer": "<p>Fabius Balance ist auf langfristige Begleitung ausgelegt, nicht auf kurzfristige Soforthilfe. Gib einer Kur ein paar Wochen Zeit.</p>" } },
+        "q4": { "type": "frage", "settings": { "question": "Ersetzt es den Tierarzt?", "answer": "<p>Nein. Fabius Balance ist ein Ergänzungsfutter und gibt keine Heilversprechen. Bei akuten oder ernsten Beschwerden ist immer Deine Tierärztin oder Dein Tierarzt die richtige Adresse.</p>" } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4"]
     }
   },
-  "order": ["main"]
+  "order": ["main", "steps", "comparison", "faq"]
 }
