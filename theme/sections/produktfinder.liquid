@@ -34,8 +34,17 @@
         <p class="fb-finder__intro" data-finder-result-sub>Hier ist Deine persönliche Empfehlung.</p>
       </div>
       <div class="fb-finder__cards" data-finder-cards></div>
+
+      <div class="fb-finder__secondary" data-finder-secondary hidden>
+        <p class="fb-finder__sec-title" data-finder-sec-title>Ergänzend für die ganze Balance</p>
+        <div class="fb-finder__cards fb-finder__cards--sec" data-finder-sec-cards></div>
+      </div>
+
       <div class="fb-finder__result-actions fb-center">
-        <button type="button" class="fb-btn fb-btn--primary" data-finder-addall>Alle hinzufügen</button>
+        {%- if section.settings.pdf_url != blank -%}
+          <a class="fb-btn fb-btn--primary fb-btn--lg" href="{{ section.settings.pdf_url }}" target="_blank" rel="noopener" download data-finder-pdf>↓ Futterberatung als PDF</a>
+        {%- endif -%}
+        <button type="button" class="fb-btn fb-btn--ghost fb-btn--lg" data-finder-addall>Alle Produkte in den Warenkorb</button>
         <button type="button" class="fb-finder__restart" data-finder-restart>↺ Beratung wiederholen</button>
       </div>
     </div>
@@ -97,7 +106,12 @@
   .fb-finder__card-title { font-size: 1.15rem; margin: 0; }
   .fb-finder__card-price { margin: 0; color: var(--fb-sage-dark); }
   .fb-finder__card .fb-btn { margin-top: auto; }
+  .fb-finder__secondary { margin-top: clamp(2rem, 4vw, 3rem); }
+  .fb-finder__sec-title { text-align: center; font-family: var(--fb-font-body); font-weight: 700; text-transform: uppercase; letter-spacing: var(--fb-track-label); font-size: 0.8rem; color: var(--fb-sage-dark); margin: 0 0 1.25rem; }
+  .fb-finder__cards--sec { opacity: 0.96; }
+  .fb-btn--lg { padding: 1.05rem 2.25rem; font-size: 0.92rem; }
   .fb-finder__result-actions { margin-top: clamp(1.75rem, 4vw, 2.5rem); display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+  .fb-finder__result-actions .fb-btn { min-width: 18rem; }
   .fb-finder__msg { text-align: center; font-size: 0.85rem; color: var(--fb-sage-dark); min-height: 1.2em; }
 
   @media (prefers-reduced-motion: reduce) { .fb-finder__bar-fill { transition: none; } }

@@ -135,13 +135,18 @@
 
     function recommend() {
       var sel = answers.bereiche || [];
-      var areas;
-      if (sel.length === 0 || sel.indexOf('all') > -1) areas = ['atem', 'darm', 'metabol'];
-      else areas = sel;
-      var recs = [];
-      areas.forEach(function (a) { if (byArea[a] && recs.indexOf(byArea[a]) < 0) recs.push(byArea[a]); });
-      if (recs.length === 0) recs = products.slice();
-      return recs;
+      var order = ['atem', 'darm', 'metabol'];
+      var primary = [];
+      if (sel.length === 0 || sel.indexOf('all') > -1) {
+        order.forEach(function (a) { if (byArea[a]) primary.push(byArea[a]); });
+        return { primary: primary, secondary: [] };
+      }
+      // primär = ausgewählte Bereiche (in fester Reihenfolge)
+      order.forEach(function (a) { if (sel.indexOf(a) > -1 && byArea[a]) primary.push(byArea[a]); });
+      if (primary.length === 0) { order.forEach(function (a) { if (byArea[a]) primary.push(byArea[a]); }); return { primary: primary, secondary: [] }; }
+      // sekundär = die übrigen Produkte
+      var secondary = products.filter(function (p) { return primary.indexOf(p) < 0; });
+      return { primary: primary, secondary: secondary };
     }
 
     function subscribeEmail() {
@@ -156,53 +161,57 @@
       } catch (e) {}
     }
 
+    function makeCard(p) {
+      var c = el('article', 'fb-finder__card');
+      var media = el('a', 'fb-finder__card-media'); media.href = p.url; media.setAttribute('aria-hidden', 'true'); media.tabIndex = -1;
+      if (p.image) { var img = el('img'); img.src = p.image; img.alt = p.title; img.loading = 'lazy'; media.appendChild(img); }
+      c.appendChild(media);
+      var body = el('div', 'fb-finder__card-body');
+      var h = el('h3', 'fb-finder__card-title'); var ha = el('a', null, p.title); ha.href = p.url; ha.style.textDecoration = 'none'; ha.style.color = 'inherit'; h.appendChild(ha);
+      body.appendChild(h);
+      body.appendChild(el('p', 'fb-finder__card-price', p.priceFmt));
+      var add = el('button', 'fb-btn fb-btn--primary'); add.type = 'button'; add.textContent = 'In den Warenkorb';
+      add.addEventListener('click', function () {
+        add.disabled = true; add.textContent = '…';
+        addToCart([{ id: p.variantId, quantity: 1 }], function (ok) {
+          add.textContent = ok ? '✓ Im Warenkorb' : 'Erneut versuchen'; add.disabled = !ok;
+        });
+      });
+      body.appendChild(add);
+      c.appendChild(body);
+      return c;
+    }
+
     function finish() {
       subscribeEmail();
-      var recs = recommend();
+      var rec = recommend();
       var name = horseName();
       root.querySelector('[data-finder-result-title]').textContent = 'Unsere Empfehlung für ' + name;
-      var subBase = recs.length > 1
+      var subBase = rec.primary.length > 1
         ? 'Diese Produkte aus dem Fabius Balance System passen zu ' + name + '.'
-        : 'Das passt zu ' + name + '.';
+        : 'Das passt am besten zu ' + name + '.';
       if (answers.email) subBase += ' Deine ausführliche Futterberatung schicken wir an ' + answers.email + '.';
       root.querySelector('[data-finder-result-sub]').textContent = subBase;
+
       var cards = root.querySelector('[data-finder-cards]');
       cards.innerHTML = '';
-      recs.forEach(function (p) {
-        var c = el('article', 'fb-finder__card');
-        var media = el('a', 'fb-finder__card-media'); media.href = p.url; media.setAttribute('aria-hidden', 'true'); media.tabIndex = -1;
-        if (p.image) { var img = el('img'); img.src = p.image; img.alt = p.title; img.loading = 'lazy'; media.appendChild(img); }
-        c.appendChild(media);
-        var body = el('div', 'fb-finder__card-body');
-        var h = el('h3', 'fb-finder__card-title'); var ha = el('a', null, p.title); ha.href = p.url; ha.style.textDecoration = 'none'; ha.style.color = 'inherit'; h.appendChild(ha);
-        body.appendChild(h);
-        body.appendChild(el('p', 'fb-finder__card-price', p.priceFmt));
-        var add = el('button', 'fb-btn fb-btn--primary'); add.type = 'button'; add.textContent = 'In den Warenkorb';
-        add.addEventListener('click', function () {
-          add.disabled = true; add.textContent = '…';
-          addToCart([{ id: p.variantId, quantity: 1 }], function (ok) {
-            add.textContent = ok ? '✓ Im Warenkorb' : 'Erneut versuchen'; add.disabled = !ok;
-          });
-        });
-        body.appendChild(add);
-        c.appendChild(body);
-        cards.appendChild(c);
-      });
+      rec.primary.forEach(function (p) { cards.appendChild(makeCard(p)); });
+
+      var secWrap = root.querySelector('[data-finder-secondary]');
+      var secCards = root.querySelector('[data-finder-sec-cards]');
+      secCards.innerHTML = '';
+      if (rec.secondary.length > 0) {
+        rec.secondary.forEach(function (p) { secCards.appendChild(makeCard(p)); });
+        secWrap.hidden = false;
+      } else {
+        secWrap.hidden = true;
+      }
+
+      var all = rec.primary.concat(rec.secondary);
       root.querySelector('[data-finder-addall]').onclick = function () {
-        var items = recs.map(function (p) { return { id: p.variantId, quantity: 1 }; });
+        var items = all.map(function (p) { return { id: p.variantId, quantity: 1 }; });
         addToCart(items, function (ok) { if (ok) window.location.href = '/cart'; });
       };
-
-      // PDF-Download (falls hinterlegt)
-      var actions = root.querySelector('[data-finder-addall]').parentNode;
-      var oldPdf = actions.querySelector('[data-finder-pdf]'); if (oldPdf) oldPdf.remove();
-      var pdfUrl = root.getAttribute('data-pdf-url');
-      if (pdfUrl) {
-        var pdf = el('a', 'fb-btn fb-btn--ghost'); pdf.setAttribute('data-finder-pdf', '');
-        pdf.href = pdfUrl; pdf.target = '_blank'; pdf.rel = 'noopener'; pdf.setAttribute('download', '');
-        pdf.textContent = 'Futterberatung als PDF';
-        actions.insertBefore(pdf, actions.querySelector('[data-finder-restart]'));
-      }
 
       show('result');
     }

@@ -13,60 +13,177 @@
     },
     "balance": {
       "type": "balance-system",
-      "settings": { "collection": "produkte" }
+      "settings": {
+        "collection": "produkte"
+      }
     },
     "pillars": {
       "type": "balance-pillars",
       "settings": {},
       "blocks": {
-        "p1": { "type": "saeule", "settings": { "title": "Atem", "text": "Unterstützt empfindliche Atemwege und begleitet Pferde in Belastungs-, Staub- oder Pollenphasen.", "link_label": "Entdecken", "link_url": "/products/atem" } },
-        "p2": { "type": "saeule", "settings": { "title": "Darm", "text": "Fördert eine stabile Verdauung und unterstützt das natürliche Gleichgewicht des Mikrobioms.", "link_label": "Entdecken", "link_url": "/products/darm" } },
-        "p3": { "type": "saeule", "settings": { "title": "Metabol", "text": "Begleitet Leber, Stoffwechsel und Ausscheidung bei stoffwechselempfindlichen Pferden.", "link_label": "Entdecken", "link_url": "/products/metabol" } }
+        "p1": {
+          "type": "saeule",
+          "settings": {
+            "title": "Atem",
+            "text": "Unterstützt empfindliche Atemwege und begleitet Pferde in Belastungs-, Staub- oder Pollenphasen.",
+            "link_label": "Entdecken",
+            "link_url": "/products/atem"
+          }
+        },
+        "p2": {
+          "type": "saeule",
+          "settings": {
+            "title": "Darm",
+            "text": "Fördert eine stabile Verdauung und unterstützt das natürliche Gleichgewicht des Mikrobioms.",
+            "link_label": "Entdecken",
+            "link_url": "/products/darm"
+          }
+        },
+        "p3": {
+          "type": "saeule",
+          "settings": {
+            "title": "Metabol",
+            "text": "Begleitet Leber, Stoffwechsel und Ausscheidung bei stoffwechselempfindlichen Pferden.",
+            "link_label": "Entdecken",
+            "link_url": "/products/metabol"
+          }
+        }
       },
-      "block_order": ["p1", "p2", "p3"]
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ]
     },
     "usp": {
       "type": "usp-band",
       "settings": {},
       "blocks": {
-        "u1": { "type": "usp", "settings": { "icon": "kreis", "title": "Das Pferd als Ganzes", "text": "Wir betrachten Atemwege, Verdauung und Stoffwechsel im Zusammenspiel — nicht isoliert." } },
-        "u2": { "type": "usp", "settings": { "icon": "schild", "title": "Mit Tierärzten entwickelt", "text": "Rezepturen, begleitet von Tiermedizin und Pferdeernährung." } },
-        "u3": { "type": "usp", "settings": { "icon": "tropfen", "title": "Durchdachte Rezepturen", "text": "Hochkonzentriert und verträglich statt verwässert — wenige Produkte, maximal durchdacht." } },
-        "u4": { "type": "usp", "settings": { "icon": "blatt", "title": "Langfristige Balance", "text": "Für nachhaltige Stabilität statt kurzfristiger Soforthilfe." } }
+        "u1": {
+          "type": "usp",
+          "settings": {
+            "icon": "kreis",
+            "title": "Das Pferd als Ganzes",
+            "text": "Wir betrachten Atemwege, Verdauung und Stoffwechsel im Zusammenspiel — nicht isoliert."
+          }
+        },
+        "u2": {
+          "type": "usp",
+          "settings": {
+            "icon": "schild",
+            "title": "Mit Tierärzten entwickelt",
+            "text": "Rezepturen, begleitet von Tiermedizin und Pferdeernährung."
+          }
+        },
+        "u3": {
+          "type": "usp",
+          "settings": {
+            "icon": "tropfen",
+            "title": "Durchdachte Rezepturen",
+            "text": "Hochkonzentriert und verträglich statt verwässert — wenige Produkte, maximal durchdacht."
+          }
+        },
+        "u4": {
+          "type": "usp",
+          "settings": {
+            "icon": "blatt",
+            "title": "Langfristige Balance",
+            "text": "Für nachhaltige Stabilität statt kurzfristiger Soforthilfe."
+          }
+        }
       },
-      "block_order": ["u1", "u2", "u3", "u4"]
+      "block_order": [
+        "u1",
+        "u2",
+        "u3",
+        "u4"
+      ]
     },
     "trio": {
       "type": "product-trio",
-      "settings": { "collection": "produkte", "cta_link": "/collections/produkte" }
+      "settings": {
+        "collection": "produkte",
+        "cta_link": "/collections/produkte"
+      }
     },
     "philosophy": {
       "type": "philosophy",
-      "settings": { "background": "warm" }
+      "settings": {
+        "background": "warm"
+      }
     },
     "story": {
       "type": "story-teaser",
-      "settings": { "link_url": "/pages/ueber-uns" }
+      "settings": {
+        "link_url": "/pages/ueber-uns"
+      }
     },
     "trust": {
       "type": "trust",
       "settings": {},
       "blocks": {
-        "t1": { "type": "punkt", "settings": { "icon": "herz", "title": "Aus echter Erfahrung", "text": "Entstanden aus der Sorge um ein chronisch krankes Pferd — nicht aus einer Marketingidee." } },
-        "t2": { "type": "punkt", "settings": { "icon": "blatt", "title": "Ganzheitlich gedacht", "text": "Immunsystem, Atemwege, Stoffwechsel und Darm betrachten wir immer zusammen." } },
-        "t3": { "type": "punkt", "settings": { "icon": "tropfen", "title": "Premium-Qualität", "text": "Sorgfältig ausgewählte Zutaten in der besten Qualität, die wir bekommen." } },
-        "t4": { "type": "punkt", "settings": { "icon": "schild", "title": "Ehrlich & ohne Versprechen", "text": "Keine Heilversprechen, keine Angst. Glaubwürdigkeit aus Geschichte und Fachwissen." } }
+        "t1": {
+          "type": "punkt",
+          "settings": {
+            "icon": "herz",
+            "title": "Aus echter Erfahrung",
+            "text": "Entstanden aus der Sorge um ein chronisch krankes Pferd — nicht aus einer Marketingidee."
+          }
+        },
+        "t2": {
+          "type": "punkt",
+          "settings": {
+            "icon": "blatt",
+            "title": "Ganzheitlich gedacht",
+            "text": "Immunsystem, Atemwege, Stoffwechsel und Darm betrachten wir immer zusammen."
+          }
+        },
+        "t3": {
+          "type": "punkt",
+          "settings": {
+            "icon": "tropfen",
+            "title": "Premium-Qualität",
+            "text": "Sorgfältig ausgewählte Zutaten in der besten Qualität, die wir bekommen."
+          }
+        },
+        "t4": {
+          "type": "punkt",
+          "settings": {
+            "icon": "schild",
+            "title": "Ehrlich & ohne Versprechen",
+            "text": "Keine Heilversprechen, keine Angst. Glaubwürdigkeit aus Geschichte und Fachwissen."
+          }
+        }
       },
-      "block_order": ["t1", "t2", "t3", "t4"]
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ]
     },
     "wissen": {
       "type": "blog-teaser",
-      "settings": { "blog": "wissen", "background": "warm" }
+      "settings": {
+        "blog": "wissen",
+        "background": "warm"
+      }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {}
     }
   },
-  "order": ["hero", "balance", "pillars", "usp", "trio", "philosophy", "story", "trust", "wissen", "newsletter"]
+  "order": [
+    "hero",
+    "balance",
+    "pillars",
+    "usp",
+    "trio",
+    "philosophy",
+    "story",
+    "trust",
+    "wissen",
+    "newsletter"
+  ]
 }
