@@ -16,6 +16,10 @@
                 sizes="(max-width:749px) 90vw, 22rem"
                 width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}"
                 alt="{{ block.settings.name | escape }}" loading="lazy" decoding="async">
+            {%- elsif block.settings.image_asset != blank and block.settings.image_asset != 'none' -%}
+              <img src="{{ block.settings.image_asset | asset_url }}" width="800" height="800"
+                sizes="(max-width:749px) 90vw, 22rem"
+                alt="{{ block.settings.name | escape }}" loading="lazy" decoding="async">
             {%- else -%}
               <span class="fb-exp__placeholder fb-label" aria-hidden="true">{{ block.settings.name | slice: 0 }}</span>
             {%- endif -%}
@@ -81,7 +85,8 @@
     {
       "type": "person", "name": "Person",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Foto" },
+        { "type": "image_picker", "id": "image", "label": "Foto (eigenes, hat Vorrang)" },
+        { "type": "select", "id": "image_asset", "label": "Oder mitgeliefertes Foto", "options": [ { "value": "none", "label": "Keins" }, { "value": "foto-marholt.jpg", "label": "Dr. Lisa Marholt" }, { "value": "foto-schmidt.jpg", "label": "Mag. Kathrin Schmidt" } ], "default": "none" },
         { "type": "text", "id": "name", "label": "Name" },
         { "type": "text", "id": "role", "label": "Rolle" },
         { "type": "textarea", "id": "bio", "label": "Kurzvorstellung" },

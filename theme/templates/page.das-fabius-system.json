@@ -72,8 +72,8 @@
         "intro": "Unsere Produkte entstehen gemeinsam mit erfahrenen Fachleuten aus Tiermedizin und Pferdeernährung."
       },
       "blocks": {
-        "e1": { "type": "person", "settings": { "name": "Dr. Lisa Marholt", "role": "Futtermittelexpertin", "bio": "Mit ihrer langjährigen Erfahrung begleitet sie die Entwicklung der Rezepturen und sorgt für eine wissenschaftlich fundierte Produktgestaltung.", "link_label": "Mehr erfahren", "link_url": "https://dr-lisa-marholt.de/" } },
-        "e2": { "type": "person", "settings": { "name": "Mag. Kathrin Schmidt", "role": "Tierärztin", "bio": "Sie bringt ihre praktische Erfahrung aus der Pferdemedizin ein und unterstützt die ganzheitliche Ausrichtung der Produktlinie.", "link_label": "Mehr erfahren", "link_url": "https://www.anicura.de/standorte/tierklinik-bamberg/unser-team/pferdetieraerzte/mag.-katrin-schmidt" } }
+        "e1": { "type": "person", "settings": { "image_asset": "foto-marholt.jpg", "name": "Dr. Lisa Marholt", "role": "Futtermittelexpertin", "bio": "Mit ihrer langjährigen Erfahrung begleitet sie die Entwicklung der Rezepturen und sorgt für eine wissenschaftlich fundierte Produktgestaltung.", "link_label": "Mehr erfahren", "link_url": "https://dr-lisa-marholt.de/" } },
+        "e2": { "type": "person", "settings": { "image_asset": "foto-schmidt.jpg", "name": "Mag. Kathrin Schmidt", "role": "Tierärztin", "bio": "Sie bringt ihre praktische Erfahrung aus der Pferdemedizin ein und unterstützt die ganzheitliche Ausrichtung der Produktlinie.", "link_label": "Mehr erfahren", "link_url": "https://www.anicura.de/standorte/tierklinik-bamberg/unser-team/pferdetieraerzte/mag.-katrin-schmidt" } }
       },
       "block_order": ["e1", "e2"]
     },
