@@ -59,10 +59,14 @@
       },
       "block_order": ["t1", "t2", "t3", "t4"]
     },
+    "wissen": {
+      "type": "blog-teaser",
+      "settings": { "blog": "wissen", "background": "warm" }
+    },
     "newsletter": {
       "type": "newsletter",
       "settings": {}
     }
   },
-  "order": ["hero", "balance", "pillars", "usp", "trio", "philosophy", "story", "trust", "newsletter"]
+  "order": ["hero", "balance", "pillars", "usp", "trio", "philosophy", "story", "trust", "wissen", "newsletter"]
 }
