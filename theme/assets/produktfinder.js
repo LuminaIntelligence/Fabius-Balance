@@ -26,6 +26,10 @@
     var steps = [
       { type: 'text', key: 'name', q: function () { return 'Wie heißt dein Pferd?'; }, placeholder: 'Deine Antwort …', required: true },
       { type: 'single', key: 'geschlecht', q: function (n) { return 'Verrate uns das Geschlecht von ' + n; }, options: ['Stute', 'Wallach', 'Hengst'] },
+      { type: 'single', key: 'alter', q: function (n) { return 'Wie alt ist ' + n + '?'; }, options: ['Jungpferd (bis 4 Jahre)', 'Erwachsen (5–15 Jahre)', 'Senior (16+ Jahre)'] },
+      { type: 'single', key: 'typ', q: function (n) { return 'Welcher Typ ist ' + n + '?'; }, options: ['Pony', 'Kleinpferd', 'Großpferd'] },
+      { type: 'single', key: 'gewicht', q: function (n) { return 'Wie schwer ist ' + n + ' ungefähr?'; }, options: ['unter 400 kg', '400–600 kg', 'über 600 kg'] },
+      { type: 'single', key: 'haltung', q: function (n) { return 'Wie wird ' + n + ' gehalten?'; }, options: ['Offenstall', 'Box', 'Weide / Robusthaltung', 'Gemischt'] },
       { type: 'single', key: 'aktiv', q: function (n) { return 'Wie aktiv ist ' + n + ' im Alltag?'; }, options: ['Eher ruhig', 'Normal', 'Sehr aktiv'] },
       {
         type: 'multi', key: 'bereiche', max: 2,
