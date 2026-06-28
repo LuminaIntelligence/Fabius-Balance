@@ -1,0 +1,104 @@
+<section class="fb-exp fb-section{% if section.settings.background == 'warm' %} fb-exp--warm{% endif %}">
+  <div class="fb-exp__inner">
+    <div class="fb-exp__head fb-center fb-reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="fb-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="fb-exp__heading">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.intro != blank -%}<p class="fb-exp__intro fb-measure">{{ section.settings.intro }}</p>{%- endif -%}
+    </div>
+
+    <div class="fb-exp__grid fb-reveal">
+      {%- for block in section.blocks -%}
+        <article class="fb-exp__card" {{ block.shopify_attributes }}>
+          <div class="fb-exp__photo">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 600 }}"
+                srcset="{{ block.settings.image | image_url: width: 300 }} 300w, {{ block.settings.image | image_url: width: 600 }} 600w"
+                sizes="(max-width:749px) 90vw, 22rem"
+                width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}"
+                alt="{{ block.settings.name | escape }}" loading="lazy" decoding="async">
+            {%- else -%}
+              <span class="fb-exp__placeholder fb-label" aria-hidden="true">{{ block.settings.name | slice: 0 }}</span>
+            {%- endif -%}
+          </div>
+          <div class="fb-exp__body">
+            <h3 class="fb-exp__name">{{ block.settings.name }}</h3>
+            {%- if block.settings.role != blank -%}<p class="fb-exp__role fb-label">{{ block.settings.role }}</p>{%- endif -%}
+            {%- if block.settings.bio != blank -%}<p class="fb-exp__bio">{{ block.settings.bio }}</p>{%- endif -%}
+            {%- if block.settings.link_url != blank -%}
+              <a class="fb-exp__link fb-link fb-label" href="{{ block.settings.link_url }}" target="_blank" rel="noopener">{{ block.settings.link_label | default: 'Mehr erfahren' }} <span aria-hidden="true">→</span></a>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .fb-exp { background-color: var(--fb-beige); }
+  .fb-exp--warm { background-color: var(--fb-beige-warm); }
+  .fb-exp__inner { max-width: 56rem; margin-inline: auto; }
+  .fb-exp__head { max-width: 44rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .fb-exp__heading { margin-top: 0.6rem; }
+  .fb-exp__intro { margin: 1rem auto 0; opacity: 0.9; }
+  .fb-exp__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: clamp(1.75rem, 4vw, 2.75rem); }
+  .fb-exp__card {
+    background-color: var(--fb-beige);
+    border: 1px solid var(--fb-sage-light);
+    border-radius: var(--fb-radius-lg);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .fb-exp--warm .fb-exp__card { background-color: var(--fb-beige); }
+  .fb-exp__photo { aspect-ratio: 4 / 3; background-color: var(--fb-beige-deep); display: flex; align-items: center; justify-content: center; }
+  .fb-exp__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .fb-exp__placeholder { font-size: 2.5rem; color: var(--fb-sage-dark); }
+  .fb-exp__body { padding: clamp(1.25rem, 1rem + 1vw, 1.75rem); }
+  .fb-exp__name { font-size: 1.3rem; margin: 0 0 0.3rem; }
+  .fb-exp__role { color: var(--fb-sage-dark); margin: 0 0 0.9rem; }
+  .fb-exp__bio { margin: 0 0 1rem; line-height: 1.7; font-size: 0.98rem; }
+  .fb-exp__link { color: var(--fb-sage-dark); text-decoration: none; display: inline-flex; gap: 0.4rem; align-items: center; }
+  .fb-exp__link span { transition: transform var(--fb-dur) var(--fb-ease); }
+  .fb-exp__link:hover span { transform: translateX(4px); }
+  @media (prefers-reduced-motion: reduce) { .fb-exp__link span { transition: none; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Experten",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select", "id": "background", "label": "Hintergrund",
+      "options": [ { "value": "canvas", "label": "Hell" }, { "value": "warm", "label": "Warm-Beige" } ],
+      "default": "canvas"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Kicker", "default": "Von Experten begleitet" },
+    { "type": "text", "id": "heading", "label": "Überschrift", "default": "Die Fachleute hinter Fabius Balance" },
+    { "type": "textarea", "id": "intro", "label": "Einleitung", "default": "Unsere Produkte entstehen gemeinsam mit erfahrenen Fachleuten aus Tiermedizin und Pferdeernährung." }
+  ],
+  "blocks": [
+    {
+      "type": "person", "name": "Person",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Foto" },
+        { "type": "text", "id": "name", "label": "Name" },
+        { "type": "text", "id": "role", "label": "Rolle" },
+        { "type": "textarea", "id": "bio", "label": "Kurzvorstellung" },
+        { "type": "text", "id": "link_label", "label": "Link-Text", "default": "Mehr erfahren" },
+        { "type": "url", "id": "link_url", "label": "Link-Ziel" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Experten",
+      "blocks": [
+        { "type": "person", "settings": { "name": "Dr. Lisa Marholt", "role": "Futtermittelexpertin", "bio": "Mit ihrer langjährigen Erfahrung begleitet sie die Entwicklung der Rezepturen und sorgt für eine wissenschaftlich fundierte Produktgestaltung." } },
+        { "type": "person", "settings": { "name": "Mag. Kathrin Schmidt", "role": "Tierärztin", "bio": "Sie bringt ihre praktische Erfahrung aus der Pferdemedizin ein und unterstützt die ganzheitliche Ausrichtung der Produktlinie." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

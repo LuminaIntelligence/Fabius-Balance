@@ -1,0 +1,85 @@
+<section class="fb-info fb-section{% if section.settings.background == 'warm' %} fb-info--warm{% endif %}">
+  <div class="fb-info__inner">
+    <div class="fb-info__head{% unless section.settings.align == 'left' %} fb-center{% endunless %} fb-reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="fb-eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="fb-info__heading">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.intro != blank -%}<div class="fb-info__intro fb-measure{% unless section.settings.align == 'left' %} fb-info__intro--center{% endunless %}">{{ section.settings.intro }}</div>{%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="fb-info__grid fb-reveal" data-cols="{{ section.settings.columns }}">
+        {%- for block in section.blocks -%}
+          <article class="fb-info__card" {{ block.shopify_attributes }}>
+            {%- if block.settings.tag != blank -%}<span class="fb-info__tag fb-label">{{ block.settings.tag }}</span>{%- endif -%}
+            {%- if block.settings.title != blank -%}<h3 class="fb-info__card-title">{{ block.settings.title }}</h3>{%- endif -%}
+            {%- if block.settings.text != blank -%}<div class="fb-info__card-text">{{ block.settings.text }}</div>{%- endif -%}
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.statement != blank -%}
+      <p class="fb-info__statement fb-center fb-reveal">{{ section.settings.statement }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .fb-info { background-color: var(--fb-beige); }
+  .fb-info--warm { background-color: var(--fb-beige-warm); }
+  .fb-info__inner { max-width: var(--page-width); margin-inline: auto; }
+  .fb-info__head { max-width: 48rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .fb-info__head.fb-center { margin-inline: auto; }
+  .fb-info__heading { margin-top: 0.6rem; }
+  .fb-info__intro { margin-top: 1rem; line-height: 1.8; opacity: 0.92; }
+  .fb-info__intro--center { margin-inline: auto; }
+  .fb-info__intro p { margin: 0 0 1rem; }
+  .fb-info__grid { display: grid; gap: clamp(1.25rem, 2.5vw, 2rem); grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+  .fb-info__grid[data-cols="2"] { grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+  .fb-info__card {
+    background-color: var(--fb-beige);
+    border: 1px solid var(--fb-sage-light);
+    border-radius: var(--fb-radius-lg);
+    padding: clamp(1.25rem, 1rem + 1.5vw, 1.9rem);
+  }
+  .fb-info--warm .fb-info__card { background-color: var(--fb-beige); }
+  .fb-info__tag { color: var(--fb-sage-dark); display: block; margin-bottom: 0.5rem; }
+  .fb-info__card-title { font-size: 1.15rem; margin: 0 0 0.5rem; }
+  .fb-info__card-text { line-height: 1.65; font-size: 0.96rem; }
+  .fb-info__card-text p { margin: 0 0 0.7rem; }
+  .fb-info__card-text ul { margin: 0; padding-left: 1.1rem; }
+  .fb-info__card-text li { margin-bottom: 0.35rem; }
+  .fb-info__statement {
+    margin: clamp(2.5rem, 5vw, 4rem) auto 0; max-width: 40rem;
+    font-family: var(--fb-font-display); text-transform: uppercase;
+    letter-spacing: var(--fb-track-display); font-size: clamp(1.15rem, 1rem + 1vw, 1.7rem);
+    line-height: 1.35;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Info-Karten",
+  "tag": "section",
+  "settings": [
+    { "type": "select", "id": "background", "label": "Hintergrund", "options": [ { "value": "canvas", "label": "Hell" }, { "value": "warm", "label": "Warm-Beige" } ], "default": "canvas" },
+    { "type": "select", "id": "align", "label": "Kopf-Ausrichtung", "options": [ { "value": "center", "label": "Mittig" }, { "value": "left", "label": "Links" } ], "default": "center" },
+    { "type": "select", "id": "columns", "label": "Spalten", "options": [ { "value": "2", "label": "2 (breit)" }, { "value": "3", "label": "3+" } ], "default": "3" },
+    { "type": "text", "id": "eyebrow", "label": "Kicker" },
+    { "type": "text", "id": "heading", "label": "Überschrift" },
+    { "type": "richtext", "id": "intro", "label": "Einleitung" },
+    { "type": "text", "id": "statement", "label": "Kernaussage (unten)" }
+  ],
+  "blocks": [
+    {
+      "type": "karte", "name": "Karte",
+      "settings": [
+        { "type": "text", "id": "tag", "label": "Label (klein)" },
+        { "type": "text", "id": "title", "label": "Titel" },
+        { "type": "richtext", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Info-Karten" }]
+}
+{% endschema %}

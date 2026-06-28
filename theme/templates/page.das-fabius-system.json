@@ -1,0 +1,111 @@
+{
+  "sections": {
+    "intro": {
+      "type": "rich-story",
+      "settings": {
+        "eyebrow": "Das Fabius Balance System",
+        "intro_heading": "Ganzheitliche Pferdegesundheit, neu gedacht",
+        "intro_text": "Fabius Balance betrachtet Pferdegesundheit nicht in Einzelteilen, sondern als Zusammenspiel von Atemwegen, Verdauung und Stoffwechsel — wissenschaftlich fundiert, ganzheitlich gedacht und inspiriert von einem Pferd namens Fabius. Wir behandeln keine Symptome. Wir verstehen Zusammenhänge."
+      }
+    },
+    "wheel": {
+      "type": "balance-system",
+      "settings": { "collection": "produkte", "background": "warm" }
+    },
+    "pillars": {
+      "type": "balance-pillars",
+      "settings": {},
+      "blocks": {
+        "p1": { "type": "saeule", "settings": { "title": "Atem", "text": "Unterstützt empfindliche Atemwege und begleitet Pferde in Belastungs-, Staub- oder Pollenphasen.", "link_label": "Zum Produkt", "link_url": "/products/atem" } },
+        "p2": { "type": "saeule", "settings": { "title": "Darm", "text": "Fördert eine stabile Verdauung und unterstützt das natürliche Gleichgewicht des Mikrobioms.", "link_label": "Zum Produkt", "link_url": "/products/darm" } },
+        "p3": { "type": "saeule", "settings": { "title": "Metabol", "text": "Begleitet Leber, Stoffwechsel und Ausscheidung bei stoffwechselempfindlichen Pferden.", "link_label": "Zum Produkt", "link_url": "/products/metabol" } }
+      },
+      "block_order": ["p1", "p2", "p3"]
+    },
+    "systemic": {
+      "type": "info-cards",
+      "settings": {
+        "background": "warm",
+        "align": "center",
+        "columns": "2",
+        "eyebrow": "Der systemische Ansatz",
+        "heading": "Warum wir das Pferd als Ganzes betrachten",
+        "intro": "<p>Viele Ergänzungsfutter setzen dort an, wo Symptome sichtbar werden — bei Schleim, Husten oder Reizungen. Das kann im Einzelfall sinnvoll sein. Doch oft bleibt eine entscheidende Frage offen: <strong>Warum reagiert das Pferd überhaupt so?</strong></p><p>Beschwerden entstehen selten isoliert. Sie sind häufig das Ergebnis eines Systems, das aus dem Gleichgewicht geraten ist. Deshalb betrachten wir nicht nur einen Bereich, sondern das Zusammenspiel vieler Faktoren.</p>",
+        "statement": "Nicht symptomorientiert. Systemisch gedacht."
+      },
+      "blocks": {
+        "c1": { "type": "karte", "settings": { "tag": "Faktor 1", "title": "Immunsystem", "text": "<p>Die Grundlage der Widerstandskraft. Ein stabiles Immunsystem hilft dem Pferd, mit täglichen Belastungen umzugehen.</p>" } },
+        "c2": { "type": "karte", "settings": { "tag": "Faktor 2", "title": "Stoffwechsel", "text": "<p>Verwertet Nährstoffe und hält die Energie im Fluss. Gerät er aus dem Takt, schwankt das Wohlbefinden.</p>" } },
+        "c3": { "type": "karte", "settings": { "tag": "Faktor 3", "title": "Darm", "text": "<p>Ein großer Teil der natürlichen Abwehr beginnt im Darm. Eine ruhige Verdauung stärkt das System von innen.</p>" } },
+        "c4": { "type": "karte", "settings": { "tag": "Faktor 4", "title": "Haltung & Bewegung", "text": "<p>Umfeld, Luft, Futter und Bewegung wirken jeden Tag mit. Echte Stabilität entsteht im Alltag.</p>" } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4"]
+    },
+    "chronic": {
+      "type": "info-cards",
+      "settings": {
+        "background": "canvas",
+        "align": "center",
+        "columns": "3",
+        "eyebrow": "Hintergrundwissen",
+        "heading": "Chronische Belastungen beim Pferd verstehen",
+        "intro": "<p>Gerade empfindliche und chronisch belastete Pferde brauchen einen anderen Blick. „Chronisch“ bedeutet nicht ein einmaliges Problem, sondern einen Zustand, der das ganze System über lange Zeit fordert. Genau hier setzt unser Denken an.</p>",
+        "statement": "Stabilität beginnt im System."
+      },
+      "blocks": {
+        "d1": { "type": "karte", "settings": { "tag": "Verstehen", "title": "Was „chronisch“ heißt", "text": "<p>Eine anhaltende, immer wiederkehrende Belastung — kein kurzer Zwischenfall. Der Körper bleibt über Wochen und Monate gefordert und reagiert empfindlicher.</p>" } },
+        "d2": { "type": "karte", "settings": { "tag": "Warum kurzfristig zu kurz greift", "title": "Der Pflaster-Effekt", "text": "<p>Soforthilfe lindert oft das Sichtbare. Das Pferd wirkt kurz besser — doch das System bleibt anfällig, und Belastungen kehren zurück.</p>" } },
+        "d3": { "type": "karte", "settings": { "tag": "Worauf es ankommt", "title": "Verlässlich über Zeit", "text": "<p>Empfindliche Pferde profitieren von ruhiger, durchdachter Begleitung über Wochen — gut verträglich, konsequent, als Teil eines Konzeptes statt als schnelle Lösung.</p>" } }
+      },
+      "block_order": ["d1", "d2", "d3"]
+    },
+    "comparison": {
+      "type": "comparison",
+      "settings": {}
+    },
+    "experts": {
+      "type": "experts",
+      "settings": {
+        "background": "warm",
+        "eyebrow": "Von Experten begleitet",
+        "heading": "Die Fachleute hinter Fabius Balance",
+        "intro": "Unsere Produkte entstehen gemeinsam mit erfahrenen Fachleuten aus Tiermedizin und Pferdeernährung."
+      },
+      "blocks": {
+        "e1": { "type": "person", "settings": { "name": "Dr. Lisa Marholt", "role": "Futtermittelexpertin", "bio": "Mit ihrer langjährigen Erfahrung begleitet sie die Entwicklung der Rezepturen und sorgt für eine wissenschaftlich fundierte Produktgestaltung.", "link_label": "Mehr erfahren", "link_url": "https://dr-lisa-marholt.de/" } },
+        "e2": { "type": "person", "settings": { "name": "Mag. Kathrin Schmidt", "role": "Tierärztin", "bio": "Sie bringt ihre praktische Erfahrung aus der Pferdemedizin ein und unterstützt die ganzheitliche Ausrichtung der Produktlinie.", "link_label": "Mehr erfahren", "link_url": "https://www.anicura.de/standorte/tierklinik-bamberg/unser-team/pferdetieraerzte/mag.-katrin-schmidt" } }
+      },
+      "block_order": ["e1", "e2"]
+    },
+    "values": {
+      "type": "info-cards",
+      "settings": {
+        "background": "canvas",
+        "align": "center",
+        "columns": "3",
+        "eyebrow": "Wofür wir stehen",
+        "heading": "Unsere Markenwerte"
+      },
+      "blocks": {
+        "v1": { "type": "karte", "settings": { "title": "Verantwortung", "text": "<p>Tiergesundheit steht an erster Stelle.</p>" } },
+        "v2": { "type": "karte", "settings": { "title": "Qualität", "text": "<p>Wenige Produkte, dafür sorgfältig entwickelt.</p>" } },
+        "v3": { "type": "karte", "settings": { "title": "Natürlichkeit", "text": "<p>Hochwertige Inhaltsstoffe und gute Verträglichkeit.</p>" } },
+        "v4": { "type": "karte", "settings": { "title": "Bewusstsein", "text": "<p>Gesundheit wird ganzheitlich betrachtet.</p>" } },
+        "v5": { "type": "karte", "settings": { "title": "Authentizität", "text": "<p>Aus echter Erfahrung entstanden — nicht aus einer Marketingidee.</p>" } }
+      },
+      "block_order": ["v1", "v2", "v3", "v4", "v5"]
+    },
+    "shop": {
+      "type": "product-trio",
+      "settings": {
+        "collection": "produkte",
+        "eyebrow": "Das System anwenden",
+        "heading": "Die drei Produkte",
+        "intro": "Jedes Produkt setzt an einem Bereich an — gemeinsam bilden sie das Fabius Balance System.",
+        "cta_label": "Alle Produkte ansehen",
+        "cta_link": "/collections/produkte"
+      }
+    }
+  },
+  "order": ["intro", "wheel", "pillars", "systemic", "chronic", "comparison", "experts", "values", "shop"]
+}
