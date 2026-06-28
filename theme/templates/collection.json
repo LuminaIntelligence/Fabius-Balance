@@ -1,6 +1,60 @@
 {
   "sections": {
-    "main": { "type": "main-collection", "settings": {} }
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "eyebrow": "Die Kur",
+        "intro": "Drei flüssige Premium-Ergänzungsfuttermittel für Pferde — entwickelt für eine moderne, ganzheitliche Pferdegesundheit. Jedes Produkt setzt an einem Bereich an und ist Teil des Fabius Balance Systems."
+      }
+    },
+    "usp": {
+      "type": "usp-band",
+      "settings": { "background": "warm", "heading": "Warum Fabius Balance?" },
+      "blocks": {
+        "u1": { "type": "usp", "settings": { "icon": "kreis", "title": "Das Pferd als Ganzes", "text": "Atemwege, Verdauung und Stoffwechsel im Zusammenspiel — nicht isoliert." } },
+        "u2": { "type": "usp", "settings": { "icon": "schild", "title": "Mit Tierärzten entwickelt", "text": "Rezepturen, begleitet von Tiermedizin und Pferdeernährung." } },
+        "u3": { "type": "usp", "settings": { "icon": "tropfen", "title": "Durchdachte Rezepturen", "text": "Hochkonzentriert und verträglich statt verwässert." } },
+        "u4": { "type": "usp", "settings": { "icon": "blatt", "title": "Langfristige Balance", "text": "Für nachhaltige Stabilität statt kurzfristiger Soforthilfe." } }
+      },
+      "block_order": ["u1", "u2", "u3", "u4"]
+    },
+    "seo": {
+      "type": "info-cards",
+      "settings": {
+        "background": "canvas",
+        "align": "center",
+        "columns": "3",
+        "eyebrow": "Premium-Ergänzungsfutter für Pferde",
+        "heading": "Ganzheitlich statt symptomorientiert",
+        "intro": "<p>Viele Ergänzungsfuttermittel für Pferde setzen dort an, wo Symptome sichtbar werden. Fabius Balance denkt einen Schritt weiter: Wir betrachten Atemwege, Verdauung und Stoffwechsel als Zusammenspiel und begleiten besonders empfindliche und sensible Pferde langfristig und verträglich. Wenige, gezielt entwickelte Produkte — maximal durchdacht.</p>",
+        "statement": "Stabilität beginnt im System."
+      },
+      "blocks": {
+        "s1": { "type": "karte", "settings": { "tag": "Atem", "title": "Atemwege", "text": "<p>Für empfindliche Atemwege — Begleitung in Belastungs-, Staub- oder Pollenphasen.</p>" } },
+        "s2": { "type": "karte", "settings": { "tag": "Darm", "title": "Verdauung", "text": "<p>Für eine stabile Verdauung und das natürliche Gleichgewicht des Mikrobioms.</p>" } },
+        "s3": { "type": "karte", "settings": { "tag": "Metabol", "title": "Stoffwechsel", "text": "<p>Für Leber, Stoffwechsel und Ausscheidung bei stoffwechselempfindlichen Pferden.</p>" } }
+      },
+      "block_order": ["s1", "s2", "s3"]
+    },
+    "comparison": {
+      "type": "comparison",
+      "settings": { "background": "warm" }
+    },
+    "faq": {
+      "type": "faq-accordion",
+      "settings": { "eyebrow": "Häufige Fragen", "heading": "Gut zu wissen" },
+      "blocks": {
+        "q1": { "type": "frage", "settings": { "question": "Welches Produkt passt zu meinem Pferd?", "answer": "<p>Du entscheidest, wo Dein Pferd gerade Unterstützung braucht: ATEM für die Atemwege, DARM für die Verdauung, METABOL für den Stoffwechsel. Gemeinsam bilden sie das Fabius Balance System.</p>" } },
+        "q2": { "type": "frage", "settings": { "question": "Kann ich mehrere Produkte kombinieren?", "answer": "<p>Ja. Jedes Produkt kann gezielt eingesetzt werden — gemeinsam unterstützen sie Dein Pferd ganzheitlich.</p>" } },
+        "q3": { "type": "frage", "settings": { "question": "Für welche Pferde sind die Produkte geeignet?", "answer": "<p>Für alle Pferde zur Vorsorge und Stärkung im Alltag, besonders für empfindliche oder sensible Tiere.</p>" } },
+        "q4": { "type": "frage", "settings": { "question": "Ersetzen die Produkte den Tierarzt?", "answer": "<p>Nein. Es handelt sich um Ergänzungsfutter ohne Heilversprechen. Bei akuten oder ernsten Beschwerden ist immer Deine Tierärztin oder Dein Tierarzt die richtige Adresse.</p>" } }
+      },
+      "block_order": ["q1", "q2", "q3", "q4"]
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": { "background": "dark" }
+    }
   },
-  "order": ["main"]
+  "order": ["main", "usp", "seo", "comparison", "faq", "newsletter"]
 }
