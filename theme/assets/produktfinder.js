@@ -43,6 +43,11 @@
         ]
       },
       {
+        type: 'text', key: 'owner', required: true, nextLabel: 'weiter',
+        q: function (n) { return 'Und wie dürfen wir Dich nennen?'; },
+        placeholder: 'Dein Name'
+      },
+      {
         type: 'email', key: 'email', required: true, nextLabel: 'Futterberatung erhalten',
         q: function (n) { return 'Wohin dürfen wir ' + n + 's Futterberatung schicken?'; },
         sub: 'Wir senden Dir Deine persönliche Futterberatung als PDF — und die Empfehlung per Mail. Mit dem Absenden stimmst Du der Datenschutzerklärung zu.'
@@ -186,9 +191,35 @@
       return c;
     }
 
+    function submitLead(rec) {
+      try {
+        var lines = [
+          'Futterberatung über den Fabius Produktfinder',
+          'Besitzer:in: ' + (answers.owner || '–'),
+          'Pferd: ' + (answers.name || '–'),
+          'Geschlecht: ' + (answers.geschlecht || '–'),
+          'Alter: ' + (answers.alter || '–'),
+          'Typ: ' + (answers.typ || '–'),
+          'Gewicht: ' + (answers.gewicht || '–'),
+          'Haltung: ' + (answers.haltung || '–'),
+          'Aktivität: ' + (answers.aktiv || '–'),
+          'Gewünschte Unterstützung: ' + ((answers.bereiche || []).join(', ') || '–'),
+          'Empfehlung: ' + rec.primary.map(function (p) { return p.title; }).join(', ')
+        ];
+        var fd = new FormData();
+        fd.append('form_type', 'contact');
+        fd.append('utf8', '✓');
+        fd.append('contact[name]', (answers.owner || '') + ' (Pferd: ' + (answers.name || '') + ')');
+        fd.append('contact[email]', answers.email || '');
+        fd.append('contact[body]', lines.join('\n'));
+        fetch('/contact', { method: 'POST', body: fd, credentials: 'same-origin' }).catch(function () {});
+      } catch (e) {}
+    }
+
     function finish() {
-      subscribeEmail();
       var rec = recommend();
+      subscribeEmail();
+      submitLead(rec);
       var name = horseName();
       root.querySelector('[data-finder-result-title]').textContent = 'Unsere Empfehlung für ' + name;
       var subBase = rec.primary.length > 1
