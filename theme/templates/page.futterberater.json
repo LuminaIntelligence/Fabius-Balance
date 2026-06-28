@@ -4,10 +4,10 @@
       "type": "produktfinder",
       "settings": {
         "background": "warm",
-        "eyebrow": "Der Fabius Produktfinder",
+        "eyebrow": "Der Fabius Futterberater",
         "heading": "Finde die passende Unterstützung für Dein Pferd",
-        "intro": "Beantworte ein paar kurze Fragen — wir empfehlen Dir, welches Produkt aus dem Fabius Balance System zu Deinem Pferd passt.",
-        "start_label": "Beratung starten"
+        "intro": "Beantworte ein paar kurze Fragen — wir erstellen Dir eine persönliche Futterberatung und empfehlen das passende Produkt aus dem Fabius Balance System.",
+        "start_label": "Futterberatung starten"
       }
     },
     "usp": {

@@ -1,7 +1,7 @@
 {%- liquid
   assign handles = 'atem,darm,metabol' | split: ','
 -%}
-<section class="fb-finder fb-section{% if section.settings.background == 'warm' %} fb-finder--warm{% endif %}" data-fb-finder>
+<section class="fb-finder fb-section{% if section.settings.background == 'warm' %} fb-finder--warm{% endif %}" data-fb-finder data-pdf-url="{{ section.settings.pdf_url }}">
   <div class="fb-finder__inner">
 
     {%- comment %} Startbildschirm {% endcomment -%}
@@ -105,15 +105,16 @@
 
 {% schema %}
 {
-  "name": "Produktfinder",
+  "name": "Futterberater",
   "tag": "section",
   "settings": [
     { "type": "select", "id": "background", "label": "Hintergrund", "options": [ { "value": "canvas", "label": "Hell" }, { "value": "warm", "label": "Warm-Beige" } ], "default": "warm" },
-    { "type": "text", "id": "eyebrow", "label": "Kicker", "default": "Der Fabius Produktfinder" },
+    { "type": "text", "id": "eyebrow", "label": "Kicker", "default": "Der Fabius Futterberater" },
     { "type": "text", "id": "heading", "label": "Überschrift", "default": "Finde die passende Unterstützung für Dein Pferd" },
-    { "type": "textarea", "id": "intro", "label": "Einleitung", "default": "Beantworte ein paar kurze Fragen — wir empfehlen Dir, welches Produkt aus dem Fabius Balance System zu Deinem Pferd passt." },
-    { "type": "text", "id": "start_label", "label": "Start-Button", "default": "Beratung starten" }
+    { "type": "textarea", "id": "intro", "label": "Einleitung", "default": "Beantworte ein paar kurze Fragen — wir erstellen Dir eine persönliche Futterberatung und empfehlen das passende Produkt aus dem Fabius Balance System." },
+    { "type": "text", "id": "start_label", "label": "Start-Button", "default": "Futterberatung starten" },
+    { "type": "url", "id": "pdf_url", "label": "Futterberatungs-PDF (Link)", "info": "PDF in Einstellungen → Dateien hochladen, Link hier einfügen. Erscheint als Download im Ergebnis." }
   ],
-  "presets": [{ "name": "Produktfinder" }]
+  "presets": [{ "name": "Futterberater" }]
 }
 {% endschema %}

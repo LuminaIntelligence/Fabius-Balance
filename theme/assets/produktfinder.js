@@ -39,9 +39,9 @@
         ]
       },
       {
-        type: 'email', key: 'email', optional: true, nextLabel: 'Empfehlung ansehen',
-        q: function (n) { return 'Fast geschafft — Deine E-Mail (optional)'; },
-        sub: 'Wir senden Dir die Empfehlung für ' + '' + ' auch per Mail. Mit dem Absenden stimmst Du unserer Datenschutzerklärung zu.'
+        type: 'email', key: 'email', required: true, nextLabel: 'Futterberatung erhalten',
+        q: function (n) { return 'Wohin dürfen wir ' + n + 's Futterberatung schicken?'; },
+        sub: 'Wir senden Dir Deine persönliche Futterberatung als PDF — und die Empfehlung per Mail. Mit dem Absenden stimmst Du der Datenschutzerklärung zu.'
       }
     ];
 
@@ -75,7 +75,11 @@
         input.placeholder = step.placeholder || (step.type === 'email' ? 'deine@email.de' : '');
         input.value = answers[step.key] || '';
         var next = el('button', 'fb-btn fb-btn--primary fb-finder__next', step.nextLabel || 'weiter');
-        function sync() { next.disabled = step.required && !input.value.trim(); }
+        function validEmail(v) { return /.+@.+\..+/.test(v); }
+        function sync() {
+          if (step.type === 'email') next.disabled = step.required && !validEmail(input.value.trim());
+          else next.disabled = step.required && !input.value.trim();
+        }
         input.addEventListener('input', function () { answers[step.key] = input.value; sync(); });
         input.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !next.disabled) { e.preventDefault(); next.click(); } });
         next.addEventListener('click', advance);
@@ -157,9 +161,11 @@
       var recs = recommend();
       var name = horseName();
       root.querySelector('[data-finder-result-title]').textContent = 'Unsere Empfehlung für ' + name;
-      root.querySelector('[data-finder-result-sub]').textContent = recs.length > 1
+      var subBase = recs.length > 1
         ? 'Diese Produkte aus dem Fabius Balance System passen zu ' + name + '.'
         : 'Das passt zu ' + name + '.';
+      if (answers.email) subBase += ' Deine ausführliche Futterberatung schicken wir an ' + answers.email + '.';
+      root.querySelector('[data-finder-result-sub]').textContent = subBase;
       var cards = root.querySelector('[data-finder-cards]');
       cards.innerHTML = '';
       recs.forEach(function (p) {
@@ -186,6 +192,18 @@
         var items = recs.map(function (p) { return { id: p.variantId, quantity: 1 }; });
         addToCart(items, function (ok) { if (ok) window.location.href = '/cart'; });
       };
+
+      // PDF-Download (falls hinterlegt)
+      var actions = root.querySelector('[data-finder-addall]').parentNode;
+      var oldPdf = actions.querySelector('[data-finder-pdf]'); if (oldPdf) oldPdf.remove();
+      var pdfUrl = root.getAttribute('data-pdf-url');
+      if (pdfUrl) {
+        var pdf = el('a', 'fb-btn fb-btn--ghost'); pdf.setAttribute('data-finder-pdf', '');
+        pdf.href = pdfUrl; pdf.target = '_blank'; pdf.rel = 'noopener'; pdf.setAttribute('download', '');
+        pdf.textContent = 'Futterberatung als PDF';
+        actions.insertBefore(pdf, actions.querySelector('[data-finder-restart]'));
+      }
+
       show('result');
     }
 
