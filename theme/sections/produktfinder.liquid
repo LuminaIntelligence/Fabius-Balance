@@ -1,7 +1,7 @@
 {%- liquid
   assign handles = 'atem,darm,metabol' | split: ','
 -%}
-<section class="fb-finder fb-section{% if section.settings.background == 'warm' %} fb-finder--warm{% endif %}" data-fb-finder data-pdf-url="{{ section.settings.pdf_url }}">
+<section class="fb-finder fb-section{% if section.settings.background == 'warm' %} fb-finder--warm{% endif %}" data-fb-finder data-pdf-url="{{ section.settings.pdf_url }}" data-webhook-url="{{ section.settings.webhook_url }}" data-send-contact="{% if section.settings.send_contact %}1{% else %}0{% endif %}">
   <div class="fb-finder__inner">
 
     {%- comment %} Startbildschirm {% endcomment -%}
@@ -127,7 +127,10 @@
     { "type": "text", "id": "heading", "label": "Überschrift", "default": "Finde die passende Unterstützung für Dein Pferd" },
     { "type": "textarea", "id": "intro", "label": "Einleitung", "default": "Beantworte ein paar kurze Fragen — wir erstellen Dir eine persönliche Futterberatung und empfehlen das passende Produkt aus dem Fabius Balance System." },
     { "type": "text", "id": "start_label", "label": "Start-Button", "default": "Futterberatung starten" },
-    { "type": "url", "id": "pdf_url", "label": "Futterberatungs-PDF (Link)", "info": "PDF in Einstellungen → Dateien hochladen, Link hier einfügen. Erscheint als Download im Ergebnis." }
+    { "type": "url", "id": "pdf_url", "label": "Futterberatungs-PDF (Link)", "info": "PDF in Einstellungen → Dateien hochladen, Link hier einfügen. Erscheint als Download im Ergebnis." },
+    { "type": "header", "content": "Datenübergabe" },
+    { "type": "checkbox", "id": "send_contact", "label": "Per Shopify-Kontaktformular senden", "default": true, "info": "Schickt jede Beratung an die Shop-Kontakt-E-Mail." },
+    { "type": "text", "id": "webhook_url", "label": "Webhook-URL (optional)", "info": "Alle Antworten werden zusätzlich als JSON an diese URL gesendet (z. B. Zapier, Make, n8n, Google Apps Script). Damit Weiterleitung an beliebige E-Mail oder Tabelle/Datenbank möglich." }
   ],
   "presets": [{ "name": "Futterberater" }]
 }

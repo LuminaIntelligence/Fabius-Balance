@@ -191,7 +191,31 @@
       return c;
     }
 
+    function sendWebhook(rec) {
+      var url = root.getAttribute('data-webhook-url');
+      if (!url) return;
+      try {
+        var payload = {
+          source: 'futterberater',
+          owner: answers.owner || '',
+          email: answers.email || '',
+          horse: answers.name || '',
+          geschlecht: answers.geschlecht || '',
+          alter: answers.alter || '',
+          typ: answers.typ || '',
+          gewicht: answers.gewicht || '',
+          haltung: answers.haltung || '',
+          aktiv: answers.aktiv || '',
+          bereiche: answers.bereiche || [],
+          empfehlung: rec.primary.map(function (p) { return p.title; }),
+          ergaenzend: rec.secondary.map(function (p) { return p.title; })
+        };
+        fetch(url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify(payload) }).catch(function () {});
+      } catch (e) {}
+    }
+
     function submitLead(rec) {
+      if (root.getAttribute('data-send-contact') !== '1') return;
       try {
         var lines = [
           'Futterberatung über den Fabius Produktfinder',
@@ -220,6 +244,7 @@
       var rec = recommend();
       subscribeEmail();
       submitLead(rec);
+      sendWebhook(rec);
       var name = horseName();
       root.querySelector('[data-finder-result-title]').textContent = 'Unsere Empfehlung für ' + name;
       var subBase = rec.primary.length > 1
